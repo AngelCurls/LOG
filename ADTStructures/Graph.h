@@ -14,14 +14,22 @@ template<typename T>
 class Graph {
 public:
     Graph();
-    void addEdge(T fromNode,T toNode,int weight = 0);
+    void addEdge(T fromNodeXpos,T fromNodeYpos, T toNodeXpos, T toNodeYpos,int weight = 0);
     void printGraph();
+    void printGraphMap();
     bool contains(LinkedList<NodeGraph<T>*>* list, T data);
+    NodeGraph<T>* getNode(T data);
+    NodeGraph<T>* getNode(int i, int j);
+    void gridGenerator(int height, int width);
+
+    LinkedList<LinkedList<NodeGraph<T> *> *> *getGraphRepresentationList() const;
+
+    LinkedList<NodeGraph<T>*>*  getAdjacencyList(NodeGraph<int> graph);
 
 private:
     LinkedList<LinkedList<NodeGraph<T>*>*>* GraphRepresentationList;
-    NodeGraph<T>* addNode(T node);
-    bool isDataIn(T data);
+    NodeGraph<T>* addNode(T XposNode,T YposNode);
+    bool isDataIn(T Xpos, T Ypos);
 
 
 };

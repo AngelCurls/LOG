@@ -5,15 +5,45 @@
 #include "NodeGraph.h"
 
 template<typename T>
-NodeGraph<T>::NodeGraph(T data):data(data){}
+NodeGraph<T>::NodeGraph(T Xpos, T Ypos, int objectID):Xpos(Xpos), Ypos(Ypos), ObjectID(objectID){}
+
 
 template<typename T>
-T NodeGraph<T>::getData() const {
-    return data;
+int NodeGraph<T>::getObjectID() const {
+    return ObjectID;
 }
 
 template<typename T>
-void NodeGraph<T>::setData(T data) {
-    NodeGraph::data = data;
+void NodeGraph<T>::setObjectID(int ObjectID) {
+    NodeGraph::ObjectID = ObjectID;
 }
 
+template<typename T>
+T NodeGraph<T>::getXpos() const {
+    return Xpos;
+}
+
+template<typename T>
+void NodeGraph<T>::setXpos(T Xpos) {
+    NodeGraph::Xpos = Xpos;
+}
+
+template<typename T>
+T NodeGraph<T>::getYpos() const {
+    return Ypos;
+}
+
+template<typename T>
+void NodeGraph<T>::setYpos(T Ypos) {
+    NodeGraph::Ypos = Ypos;
+}
+
+template<typename T>
+int NodeGraph<T>::getHeuristic() const {
+    return Heuristic;
+}
+
+template<typename T>
+void NodeGraph<T>::setHeuristic(int Heuristic) {
+    NodeGraph::Heuristic = Heuristic;
+}

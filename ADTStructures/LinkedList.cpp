@@ -161,3 +161,14 @@ bool LinkedList<T>::isDataIn(T data) {
     }
     return isIn;
 }
+
+template<typename T>
+LinkedList<T> LinkedList<T>::operator+(LinkedList<T> list) {
+    for (int i = 0; i < list.getSize(); i++) {
+        if(!isDataIn(list.get(i))){
+            this->add(list.get(i));
+        }
+
+    }
+
+}

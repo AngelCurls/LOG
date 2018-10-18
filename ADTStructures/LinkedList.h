@@ -24,6 +24,8 @@ public:
     bool isDataIn(T data);
     void printList();
 
+    LinkedList<T> operator+(LinkedList<T> list);
+
     NodeLinkedList<T> *getHead() const;
 
     int getSize() const;
