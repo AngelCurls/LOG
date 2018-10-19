@@ -1,6 +1,4 @@
-#include <iostream>
-#include "ADTStructures/Graph.h"
-#include "ADTStructures/Graph.cpp"
+#include "Algorithms/AStar.h"
 
 
 int main() {
@@ -40,8 +38,11 @@ int main() {
     graph->getNode(1)->setObjectID(1);
     graph->getNode(4)->setObjectID(1);
     std::cout << std::endl;*/
-    graph->gridGenerator(25,25);
-    graph->printGraph();
-    graph->printGraphMap();
+    graph->gridGenerator(20,20);
+    auto list = AStar::findPath(*graph,graph->getNode(0,0),graph->getNode(19,19));
+    for (int i = 0; i <list->getSize() ; i++) {
+        std::cout<< "(" << list->get(i)->getXpos() << "," << list->get(i)->getYpos() << ")" << " -> ";
+
+    }
     return 0;
 }

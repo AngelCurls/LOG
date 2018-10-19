@@ -172,3 +172,14 @@ LinkedList<T> LinkedList<T>::operator+(LinkedList<T> list) {
     }
 
 }
+
+template<typename T>
+void LinkedList<T>::remove(T data) {
+    for (int i = 0; i <size ; i++) {
+        if (get(i) == data){
+            remove(i);
+            break;
+        }
+    }
+
+}

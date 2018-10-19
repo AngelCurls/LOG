@@ -6,9 +6,7 @@
 #define ADTLIBRARY_GRAPH_H
 
 
-#include "LinkedList.h"
 #include "LinkedList.cpp"
-#include "NodeGraph.h"
 #include "NodeGraph.cpp"
 template<typename T>
 class Graph {
@@ -24,7 +22,7 @@ public:
 
     LinkedList<LinkedList<NodeGraph<T> *> *> *getGraphRepresentationList() const;
 
-    LinkedList<NodeGraph<T>*>*  getAdjacencyList(NodeGraph<int> graph);
+    LinkedList<NodeGraph<T>*>*  getAdjacencyList(NodeGraph<T>* node);
 
 private:
     LinkedList<LinkedList<NodeGraph<T>*>*>* GraphRepresentationList;

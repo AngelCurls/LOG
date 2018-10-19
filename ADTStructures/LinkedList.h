@@ -5,7 +5,6 @@
 #ifndef ADTLIBRARY_LINKEDLIST_H
 #define ADTLIBRARY_LINKEDLIST_H
 
-#include "NodeLinkedList.h"
 #include "NodeLinkedList.cpp"
 
 template<typename T>
@@ -20,6 +19,7 @@ public:
     T get(int index);
     T operator[](int index);
     void remove(int index);
+    void remove(T data);
     NodeLinkedList<T>* getNode(int index);
     bool isDataIn(T data);
     void printList();
