@@ -150,8 +150,18 @@ void Graph<T>::gridGenerator(int height, int widht) {
 
 template<typename T>
 NodeGraph<T> *Graph<T>::getNode(int i, int j) {
-    NodeGraph<T> * node;
-    node = this->GraphRepresentationList->get(i)->get(j);
+    NodeGraph<T> * node = nullptr;
+    for (int k = 0; k < this->GraphRepresentationList->getSize(); k++) {
+        for (int l = 0; l < this->GraphRepresentationList->get(k)->getSize() ; l++) {
+            auto nodeTemp= this->GraphRepresentationList->get(k)->get(l);
+            if (nodeTemp->getXpos() == i && nodeTemp->getYpos() == j ){
+                node = nodeTemp;
+                break;
+            }
+
+        }
+
+    }
     return node;
 }
 
@@ -161,7 +171,7 @@ LinkedList<LinkedList<NodeGraph<T> *> *> *Graph<T>::getGraphRepresentationList()
 }
 
 template<typename T>
-LinkedList<NodeGraph<T>*>*  Graph<T>::getAdjacencyList(NodeGraph<T> searchedNode) {
+LinkedList<NodeGraph<T>*>*  Graph<T>::getAdjacencyList(NodeGraph<T>* searchedNode) {
     LinkedList<NodeGraph<T>*>* list = nullptr;
     for (int i = 0; i < this->GraphRepresentationList->getSize() ; i++) {
         if (this->GraphRepresentationList->get(i)->get(0) == searchedNode){

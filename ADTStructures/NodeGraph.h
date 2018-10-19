@@ -10,10 +10,6 @@ class NodeGraph {
 public:
     NodeGraph(T Xpos,T Ypos, int objectID = 0);
 
-    int getWeight() const;
-
-    void setWeight(int weight);
-
     int getObjectID() const;
 
     void setObjectID(int ObjectID);
@@ -30,12 +26,26 @@ public:
 
     void setHeuristic(int Heuristic);
 
+    int getG() const;
+
+    void setG(int g);
+
+    NodeGraph<T> *getPrevious() const;
+
+    void setPrevious(NodeGraph<T> *previous);
+
+    int getF() const;
+
+    void setF(int F);
+
 private:
     T Xpos;
     T Ypos;
     int ObjectID;
-    int weight;
+    int g;
     int Heuristic;
+    int F;
+    NodeGraph<T>* previous;
 
 
 };

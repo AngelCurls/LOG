@@ -6,14 +6,16 @@
 #define LOG_ASTAR_H
 
 
-#include "../ADTStructures/Graph.h"
+#include "../ADTStructures/Graph.cpp"
 class AStar{
 private:
 
 public:
-    LinkedList<NodeGraph<int>*>* findPath(Graph<int> graph,NodeGraph<int> start, NodeGraph<int> target);
+    static LinkedList<NodeGraph<int>*>* findPath(Graph<int> graph,NodeGraph<int>* start, NodeGraph<int>* target);
 
-    void calHeuristic(Graph<int> graph, NodeGraph<int> nodeGraph);
+    static void calHeuristic(NodeGraph<int> current, NodeGraph<int> target);
+
+    static NodeGraph<int>* minF(LinkedList<NodeGraph<int> *> *pList,NodeGraph<int>* target);
 };
 
 
