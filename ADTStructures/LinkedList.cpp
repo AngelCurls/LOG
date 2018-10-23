@@ -91,6 +91,7 @@ void LinkedList<T>::remove(int index) {
             }
 
             node = node->getNext();
+            internalIndex++;
         }
 
     }

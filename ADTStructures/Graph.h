@@ -19,6 +19,7 @@ public:
     NodeGraph<T>* getNode(T data);
     NodeGraph<T>* getNode(int i, int j);
     void gridGenerator(int height, int width);
+    void remove(T data);
 
     LinkedList<LinkedList<NodeGraph<T> *> *> *getGraphRepresentationList() const;
 

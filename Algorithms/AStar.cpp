@@ -45,8 +45,8 @@ LinkedList<NodeGraph<int>*>* AStar::findPath(Graph<int> graph, NodeGraph<int>* s
         }
 
     }
-    free(openlist);
-    free(closedList);
+    delete openlist;
+    delete closedList;
     return path;
 
 
