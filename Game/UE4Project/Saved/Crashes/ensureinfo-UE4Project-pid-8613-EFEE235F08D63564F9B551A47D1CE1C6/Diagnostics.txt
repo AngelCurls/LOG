@@ -1,0 +1,36 @@
+Generating report for minidump
+
+Application version 4.20.3.0
+ ... built from changelist 0
+
+OS version Linux 4.15.0-36-generic (network name: AW17edmobe)
+Running 4 x86_64 processors (8 logical cores)
+Exception was "Ensure condition failed: !InputKeys.Contains(Key) [File:/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/InputCore/Private/InputCoreTypes.cpp] [Line: 717] "
+
+<SOURCE START>
+<SOURCE END>
+
+<CALLSTACK START>
+libUE4Editor-Core.so!FUnixPlatformStackWalk::CaptureStackBackTrace(unsigned long long*, unsigned int, void*) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/Unix/UnixPlatformStackWalk.cpp:1427]
+libUE4Editor-Core.so!FGenericPlatformStackWalk::StackWalkAndDump(char*, unsigned long, int, void*) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/GenericPlatform/GenericPlatformStackWalk.cpp:172]
+libUE4Editor-Core.so!FUnixCrashContext::CaptureStackTrace() [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/Unix/UnixPlatformCrashContext.cpp:292]
+libUE4Editor-Core.so!NewReportEnsure(wchar_t const*) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/Unix/UnixPlatformStackWalk.cpp:1586]
+libUE4Editor-Core.so!FDebug::EnsureFailed(char const*, char const*, int, wchar_t const*) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/Misc/AssertionMacros.cpp:392]
+libUE4Editor-Core.so!FDebug::OptionallyLogFormattedEnsureMessageReturningFalseImpl(bool, char const*, char const*, int, wchar_t const*, ...) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Private/Misc/AssertionMacros.cpp:436]
+libUE4Editor-InputCore.so!EKeys::AddKey(FKeyDetails const&) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Core/Public/Misc/AssertionMacros.h:94]
+libUE4Editor-InputCore.so!FInputKeyManager::GetKeyFromCodes(unsigned int, unsigned int) const [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/InputCore/Private/InputCoreTypes.cpp:1178]
+libUE4Editor-Slate.so!FSlateApplication::OnKeyUp(int, unsigned int, bool) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Slate/Private/Framework/Application/SlateApplication.cpp:5064]
+libUE4Editor-ApplicationCore.so!FLinuxApplication::ProcessDeferredMessage(SDL_Event) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/ApplicationCore/Private/Linux/LinuxApplication.cpp:270]
+libUE4Editor-ApplicationCore.so!FLinuxApplication::AddPendingEvent(SDL_Event) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/ApplicationCore/Private/Linux/LinuxApplication.cpp:194]
+libUE4Editor-ApplicationCore.so!FLinuxPlatformApplicationMisc::PumpMessages(bool) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/ApplicationCore/Private/Linux/LinuxPlatformApplicationMisc.cpp:424]
+UE4Editor!FEngineLoop::Tick() [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp:3417]
+UE4Editor!GuardedMain(wchar_t const*) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Launch/Private/Launch.cpp:62]
+libUE4Editor-UnixCommonStartup.so!CommonUnixMain(int, char**, int (*)(wchar_t const*)) [/home/edmobe/UnrealEngine-release/Engine/Source/Runtime/Unix/UnixCommonStartup/Private/UnixCommonStartup.cpp:245]
+libc.so.6!__libc_start_main(+0xe6)
+UE4Editor!_start()
+
+<CALLSTACK END>
+
+0 loaded modules
+
+Report end!
