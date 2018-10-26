@@ -74,12 +74,18 @@ void ViewManager::mainLoop() {
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    xGraph = 20 * mouseState.x / this->getHeight();
-                    yGraph = 20 * mouseState.y / this->getWidth();
-                    std::cout<< xGraph << ";" << yGraph << std::endl;
-                    path = gameLevel->getPath(graph,xGraph,yGraph, 19,19);
-                    drawPath(path);
+                    //al_get_mouse_cursor_position(&xGraph,&yGraph);
+                    xGraph = mouseState.x;
+                    yGraph = mouseState.y;
+                    //std::cout<< xGraph << ";" << yGraph << std::endl;
+                    //al_get_mouse_state(&mouseState);
+                    std::cout<< "funka";
+                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 19,19);
+
+                    std::cout<< "funka";
+
                     levelNumber++;
+
 
 
                 }
@@ -92,6 +98,8 @@ void ViewManager::mainLoop() {
         }
 
     }
+    delete(path);
+    delete(graph);
 
 }
 

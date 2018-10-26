@@ -17,10 +17,14 @@ LinkedList<NodeGraph<int>*>* AStar::findPath(Graph<int> graph, NodeGraph<int>* s
         NodeGraph<int>* current = minF(openlist, target);
         if (current == target){
             while (current != nullptr){
+                if (current == start){
+                    path->add(current);
+                    break;
+                }
                 path->add(current);
                 current = current->getPrevious();
             }
-            break;
+            return path;
         }
         openlist->remove(current);
         closedList->add(current);
