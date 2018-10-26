@@ -25,8 +25,7 @@ ViewManager::ViewManager() {
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timer));
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timerDraw));
 
-    al_start_timer(this->timer);
-    al_start_timer(this->timerDraw);
+
 
     showing = true;
 
@@ -37,9 +36,9 @@ ViewManager::ViewManager() {
 }
 
 void ViewManager::showDisplay() {
-    std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
-    displayThread.join();
-
+    //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
+    //displayThread.join();
+mainLoop();
 
 }
 
@@ -47,14 +46,21 @@ void ViewManager::mainLoop() {
     this->ptrDisplay = al_create_display(this->Height,this->Width);
     al_register_event_source(this->eventQueue,al_get_display_event_source(this->ptrDisplay));
 
+    al_start_timer(this->timer);
+    al_start_timer(this->timerDraw);
+
 
     Graph<int>* graph = new Graph<int>();
     graph->gridGenerator(20,20);
     LinkedList<NodeGraph<int>*>* path = nullptr;
+    ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
+    int yGraph;
+    int xGraph;
     Level* gameLevel = LevelBuilder::getLevel(levelNumber);
+    ALLEGRO_EVENT event;
+
     while (showing){
-        ALLEGRO_EVENT event;
 
         al_wait_for_event(this->eventQueue,&event);
         //std::cout << event.type;
@@ -62,17 +68,28 @@ void ViewManager::mainLoop() {
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             showing = false;
             destroyWindow();
-        }
-        else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
-            ALLEGRO_MOUSE_STATE mouseState;
-            al_get_mouse_state(&mouseState);
-            int xGraph = 19 * mouseState.x/this->getWidth();
-            int yGraph = 19 * mouseState.y/this->getHeight();
-            path = gameLevel->getPath(graph,xGraph,yGraph, 19,19);
+        }else if (event.type == ALLEGRO_EVENT_TIMER){
+            if (event.timer.source == this->timer){
+                al_get_mouse_state(&mouseState);
 
+                if (mouseState.buttons & 1 || mouseState.buttons & 2){
+
+                    xGraph = 20 * mouseState.x / this->getHeight();
+                    yGraph = 20 * mouseState.y / this->getWidth();
+                    std::cout<< xGraph << ";" << yGraph << std::endl;
+                    path = gameLevel->getPath(graph,xGraph,yGraph, 19,19);
+                    drawPath(path);
+                    levelNumber++;
+
+
+                }
+
+            } else if ( event.timer.source == this->timerDraw){
+                al_clear_to_color(al_map_rgb(255,255,255));
+                drawPath(path);
+                al_flip_display();
+            }
         }
-        drawPath(path);
-        al_flip_display();
 
     }
 
@@ -122,7 +139,7 @@ void ViewManager::drawPath(LinkedList<NodeGraph<int> *> *pList) {
             float y = (float) node->getYpos();
             al_draw_filled_rectangle(x * this->getHeight() / 20, y * this->getWidth() / 20,
                                      x * this->getHeight() / 20 + this->getHeight() / 20,
-                                     y * this->getWidth() / 20 + this->getWidth() / 20, al_map_rgb(0, 100, 100));
+                                     y * this->getWidth() / 20 + this->getWidth() / 20, al_map_rgb(0, 255, 255));
         }
 
 

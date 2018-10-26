@@ -59,11 +59,14 @@ void AStar::calHeuristic(NodeGraph<int> current, NodeGraph<int> target) {
 
 NodeGraph<int>* AStar::minF(LinkedList<NodeGraph<int> *> *openList, NodeGraph<int>* target) {
     NodeGraph<int>* min = openList->get(0);
+    int fmin = min->getObjectID() + min->getG() + min->getHeuristic();
     for (int i = 0; i < openList->getSize() ; i++) {
         NodeGraph<int>* current = openList->get(i);
         calHeuristic(*current,*target);
-        if (current->getHeuristic() + current->getG() < min->getG() + min->getHeuristic()){
+        int fCurrent = current->getHeuristic() + current->getG() + current->getObjectID();
+        if (fCurrent< fmin){
             min = current;
+            fmin = fCurrent;
         }
 
     }
