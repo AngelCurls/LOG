@@ -17,10 +17,14 @@ LinkedList<NodeGraph<int>*>* AStar::findPath(Graph<int> graph, NodeGraph<int>* s
         NodeGraph<int>* current = minF(openlist, target);
         if (current == target){
             while (current != nullptr){
+                if (current == start){
+                    path->add(current);
+                    break;
+                }
                 path->add(current);
                 current = current->getPrevious();
             }
-            break;
+            return path;
         }
         openlist->remove(current);
         closedList->add(current);
@@ -59,11 +63,14 @@ void AStar::calHeuristic(NodeGraph<int> current, NodeGraph<int> target) {
 
 NodeGraph<int>* AStar::minF(LinkedList<NodeGraph<int> *> *openList, NodeGraph<int>* target) {
     NodeGraph<int>* min = openList->get(0);
+    int fmin = min->getObjectID() + min->getG() + min->getHeuristic();
     for (int i = 0; i < openList->getSize() ; i++) {
         NodeGraph<int>* current = openList->get(i);
         calHeuristic(*current,*target);
-        if (current->getHeuristic() + current->getG() < min->getG() + min->getHeuristic()){
+        int fCurrent = current->getHeuristic() + current->getG() + current->getObjectID();
+        if (fCurrent< fmin){
             min = current;
+            fmin = fCurrent;
         }
 
     }
