@@ -3,7 +3,8 @@
 //
 
 #include "Level.h"
+#include "../ADT/GraphAM.h"
 
-LinkedList<NodeGraph<int> *> *Level::getPath(Graph<int> *graph, int xPlayer, int yPlayer, int xTarget, int yTarget) {
+std::list<Cell<int>*>* Level::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget, int yTarget) {
     return nullptr;
 }

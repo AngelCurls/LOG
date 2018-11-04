@@ -59,9 +59,20 @@ void LinkedList<T>::add(T data) {
 
 }
 
+template<typename T>
+void LinkedList<T>::addFirst(T data) {
+    if (this->head == nullptr){
+        this->head = new NodeLinkedList<T>(data);
+        size++;
+    } else{
+        NodeLinkedList<T>* tmp = this->head;
+        this->head = new NodeLinkedList<T>(data);
+        this->head->setNext(tmp);
+        size++;
 
+    }
 
-
+}
 
 
 template<typename T>

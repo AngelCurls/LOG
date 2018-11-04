@@ -3,7 +3,6 @@
 //
 
 #include "ViewManager.h"
-#include "../ADTStructures/Graph.cpp"
 #include <allegro5/allegro_primitives.h>
 
 
@@ -50,9 +49,9 @@ void ViewManager::mainLoop() {
     al_start_timer(this->timerDraw);
 
 
-    Graph<int>* graph = new Graph<int>();
-    graph->gridGenerator(20,20);
-    LinkedList<NodeGraph<int>*>* path = nullptr;
+    Graph* graph = new Graph();
+    graph->generateGrid();
+    std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
     int yGraph;
@@ -74,17 +73,13 @@ void ViewManager::mainLoop() {
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    //al_get_mouse_cursor_position(&xGraph,&yGraph);
                     xGraph = mouseState.x;
                     yGraph = mouseState.y;
-                    //std::cout<< xGraph << ";" << yGraph << std::endl;
-                    //al_get_mouse_state(&mouseState);
-                    std::cout<< "funka";
-                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 19,19);
 
-                    std::cout<< "funka";
+                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 49,49);
 
-                    levelNumber++;
+
+
 
 
 
@@ -127,7 +122,7 @@ int ViewManager::getWidth() const {
     return Width;
 }
 
-ALLEGRO_DISPLAY *ViewManager::getPtrDisplay() const {
+ALLEGRO_DISPLAY* ViewManager::getPtrDisplay() const {
     return ptrDisplay;
 }
 
@@ -138,18 +133,13 @@ ViewManager::~ViewManager() {
     }
 }
 
-void ViewManager::drawPath(LinkedList<NodeGraph<int> *> *pList) {
+void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
     if (pList != nullptr) {
-        for (int i = 0; i < pList->getSize(); i++) {
-            NodeGraph<int> *node = pList->get(i);
+        for (auto currentCell : *pList) {
             //al_draw_rectangle((float)node->getXpos(),(float)node->getYpos(),node->getXpos() + this->getWidth()/19,node->getXpos() + this->getWidth()/19,al_map_rgb(0, 255, 0), 255);
-            float x = (float) node->getXpos();
-            float y = (float) node->getYpos();
-            al_draw_filled_rectangle(x * this->getHeight() / 20, y * this->getWidth() / 20,
-                                     x * this->getHeight() / 20 + this->getHeight() / 20,
-                                     y * this->getWidth() / 20 + this->getWidth() / 20, al_map_rgb(0, 255, 255));
+            float x = (float) currentCell->getXpos();
+            float y = (float) currentCell->getYpos();
+            al_draw_filled_rectangle(x*10, y*10 ,x*10+10,y*10+10, al_map_rgb(0, 255, 255));
         }
-
-
     }
 }

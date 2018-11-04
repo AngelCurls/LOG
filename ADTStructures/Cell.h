@@ -6,9 +6,9 @@
 #define ADTLIBRARY_NODEGRAPH_H
 
 template <typename T>
-class NodeGraph {
+class Cell {
 public:
-    NodeGraph(T Xpos,T Ypos, int objectID = 0);
+    Cell(T Xpos,T Ypos, int objectID = 0);
 
     int getObjectID() const;
 
@@ -30,22 +30,28 @@ public:
 
     void setG(int g);
 
-    NodeGraph<T> *getPrevious() const;
+    Cell<T> *getPrevious() const;
 
-    void setPrevious(NodeGraph<T> *previous);
+    void setPrevious(Cell<T> *previous);
 
     int getF() const;
 
     void setF(int F);
 
+    int getHashKey() const;
+
+    void setHashKey(int hashKey);
+
+    bool operator < (Cell<int>* cellToCompare);
 private:
     T Xpos;
     T Ypos;
-    int ObjectID;
-    int g;
-    int Heuristic;
-    int F;
-    NodeGraph<T>* previous;
+    int ObjectID = 10000;
+    int g = 10000;
+    int Heuristic = 0;
+    int F = 10000;
+    int hashKey;
+    Cell<T>* previous;
 
 
 };

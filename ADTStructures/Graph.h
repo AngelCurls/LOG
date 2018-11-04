@@ -1,37 +1,78 @@
 //
-// Created by Joseph Luis González Pastora on 7/10/18.
+// Created by jglez2330 on 28/10/18.
 //
 
-#ifndef ADTLIBRARY_GRAPH_H
-#define ADTLIBRARY_GRAPH_H
+#ifndef LOG_GRAPH_H
+#define LOG_GRAPH_H
 
 
-#include "LinkedList.cpp"
-#include "NodeGraph.cpp"
-template<typename T>
+#include "Cell.cpp"
+#include <vector>
+#include <set>
+
+/***
+ *
+ */
 class Graph {
 public:
-    Graph();
-    void addEdge(T fromNodeXpos,T fromNodeYpos, T toNodeXpos, T toNodeYpos,int weight = 0);
-    void printGraph();
-    void printGraphMap();
-    bool contains(LinkedList<NodeGraph<T>*>* list, T data);
-    NodeGraph<T>* getNode(T data);
-    NodeGraph<T>* getNode(int i, int j);
-    void gridGenerator(int height, int width);
-    void remove(T data);
-
-    LinkedList<LinkedList<NodeGraph<T> *> *> *getGraphRepresentationList() const;
-
-    LinkedList<NodeGraph<T>*>*  getAdjacencyList(NodeGraph<T>* node);
+    Graph(int height = 50, int width = 50);
 
 private:
-    LinkedList<LinkedList<NodeGraph<T>*>*>* GraphRepresentationList;
-    NodeGraph<T>* addNode(T XposNode,T YposNode);
-    bool isDataIn(T Xpos, T Ypos);
+    int height;
+    int width;
+    int CantObstaculos = 2;
+    Cell<int>*** keyTable;
+    std::set<Cell<int>*>*adjacencyList;
+public:
+
+    /**
+     * Genera en un patron de malla en el grafo conectando de la siguiente manera
+     *
+     *
+     *          N
+     *          |
+     *    O --  C -- E
+     *          |
+     *          S
+     * Donde el centro (C) esta conectado con el nodo de arriba(N), el de abajo(S), el de la derecha(E), el de la izquierda(O)
+     *
+     */
+    void generateGrid();
+    /**
+     * Funcion que restaura el valor de los puntos G y la heuristica de cada Nodo
+     */
+    void restoreGraph();
+
+    /**
+     * Agrega en la lista de CellFrom, el nodo CellTo
+     * @param CellFrom Nodo en que se va a agregar el nodo CellTo
+     * @param CellTo Nodo que se quiere agregar en CellFrom
+     */
+    void addEdge(Cell<int>* CellFrom,Cell<int>* CellTo);
+
+    /**
+     * Obtiene la lista de adyacencia del nodo en la posicion I,J
+     * @param i Posicion en x en el que se encuentra el nodo
+     * @param j Posicon en y en el que se encuentr el nodo
+     * @return Lista de adyacencia del Nodo en (i,j)
+     */
+    std::set<Cell<int> *> getNodeAdjacencyList(int i, int j);
+    /**
+     * Metodo que obtiene el nodo en la posicion (i,j)
+     * @param i posicion x en la que se encuentra el nodo
+     * @param j Posicion y en la que se encuentra el nodo
+     * @return El nodo en la posicion (i,j)
+     */
+    Cell<int>* getNode(int i , int j);
+
+
+    /**
+     * Destructor de la clase
+     */
+    virtual ~Graph();
 
 
 };
 
 
-#endif //ADTLIBRARY_GRAPH_H
+#endif //LOG_GRAPH_H

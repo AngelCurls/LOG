@@ -4,9 +4,9 @@
 
 #include "AstarLevel.h"
 #include "../Algorithms/AStar.h"
+#include "../ADTStructures/LinkedList.h"
 
-LinkedList<NodeGraph<int> *> * AstarLevel::getPath(Graph<int> *graph, int xPlayer, int yPlayer, int xTarget,
+std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
                                                    int yTarget) {
-    return AStar::findPath(*graph,graph->getNode(xPlayer,yPlayer),graph->getNode(xTarget,yTarget));
-
+    return AStar::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
 }
