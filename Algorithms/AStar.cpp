@@ -4,75 +4,87 @@
 
 #include "AStar.h"
 
-LinkedList<NodeGraph<int>*>* AStar::findPath(Graph<int> graph, NodeGraph<int>* start, NodeGraph<int>* target) {
+std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, int iTarget, int jTarget) {
 
-    auto openlist = new LinkedList<NodeGraph<int>*>();
-    LinkedList<NodeGraph<int>*>* path = new LinkedList<NodeGraph<int>*>();
-    openlist->add(start);
+
+    std::set<Cell<int>*> closedList = std::set<Cell<int>*>();
+    std::set<Cell<int>*> openList = std::set<Cell<int>*>();
+    auto path = new std::list<Cell<int>*>();
+
+    Cell<int>* start = graph->getNode(iStart,jStart);
+    Cell<int>* target = graph->getNode(iTarget,jTarget);
+
     start->setG(0);
-    //openlist->operator+(*graph.getAdjacencyList(*start));
-    LinkedList<NodeGraph<int>*>* closedList = new LinkedList<NodeGraph<int>*>();
+    calHeuristic(start,iTarget,jTarget);
+    openList.insert(start);
 
-    while (openlist->getSize() != 0){
-        NodeGraph<int>* current = minF(openlist, target);
+    Cell<int>* current;
+    int tempScoreG;
+    while (!openList.empty()){
+        current = minF(openList,target);
+
         if (current == target){
             while (current != nullptr){
                 if (current == start){
-                    path->add(current);
+                    path->push_front(current);
                     break;
                 }
-                path->add(current);
+
+                path->push_front(current);
                 current = current->getPrevious();
             }
-            return path;
+            break;
         }
-        openlist->remove(current);
-        closedList->add(current);
 
-        LinkedList<NodeGraph<int>*>* neighbors = graph.getAdjacencyList(current);
-        for (int i = 0; i <neighbors->getSize() ; i++) {
-            NodeGraph<int>* neighbor = neighbors->get(i);
-            if (closedList->isDataIn(neighbor)){
+        openList.erase(current);
+        closedList.insert(current);
+
+        auto neighbors = graph->getNodeAdjacencyList(current->getXpos(), current->getYpos());
+
+        for (auto neighborCurrentCell : neighbors) {
+            if (closedList.count(neighborCurrentCell)){
                 continue;
             }
-            int tempG_score = current->getG() + 1;
+            tempScoreG = current->getG() + 1;
 
-            if (!openlist->isDataIn(neighbor)){
-                openlist->add(neighbor);
-            } else if (tempG_score >= neighbor->getG()){
+            if (!openList.count(neighborCurrentCell)){
+
+                openList.insert(neighborCurrentCell);
+            } else if (tempScoreG >= neighborCurrentCell->getG()){
                 continue;
             }
-            neighbor->setPrevious(current);
-            neighbor->setG(tempG_score);
 
+            neighborCurrentCell->setPrevious(current);
+            neighborCurrentCell->setG(tempScoreG);
 
         }
 
     }
-    delete openlist;
-    delete closedList;
     return path;
-
-
 }
 
-void AStar::calHeuristic(NodeGraph<int> current, NodeGraph<int> target) {
-        current.setHeuristic(abs(current.getXpos() - target.getXpos()) + abs(current.getYpos() - target.getYpos()));
+Cell<int> *AStar::minF(std::set<Cell<int> *> openList, Cell<int> *Target) {
+    Cell<int>* min = *openList.begin();
+    int minF = min->getG() + min->getObjectID() + min->getHeuristic();
 
-}
-
-NodeGraph<int>* AStar::minF(LinkedList<NodeGraph<int> *> *openList, NodeGraph<int>* target) {
-    NodeGraph<int>* min = openList->get(0);
-    int fmin = min->getObjectID() + min->getG() + min->getHeuristic();
-    for (int i = 0; i < openList->getSize() ; i++) {
-        NodeGraph<int>* current = openList->get(i);
-        calHeuristic(*current,*target);
-        int fCurrent = current->getHeuristic() + current->getG() + current->getObjectID();
-        if (fCurrent< fmin){
-            min = current;
-            fmin = fCurrent;
+    int currentMin;
+    for (auto currentCell : openList) {
+        calHeuristic(currentCell,Target->getXpos(),Target->getYpos());
+        currentMin = currentCell->getHeuristic() + currentCell->getObjectID() + currentCell->getG();
+        if (currentMin < minF){
+            min = currentCell;
+            minF = currentMin;
         }
+
 
     }
     return min;
+}
+
+void AStar::calHeuristic(Cell<int> *current, int iTarget, int jTarget) {
+    int iCurrent = current->getXpos();
+    int jCurrent = current->getYpos();
+
+    current->setHeuristic(abs(iCurrent-iTarget) + abs(jCurrent - jTarget));
+
 }

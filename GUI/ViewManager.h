@@ -8,17 +8,19 @@
 #include "allegro5/allegro.h"
 #include <thread>
 #include <iostream>
+#include <list>
 #include <allegro5/allegro_image.h>
 #include "../Levels/Level.h"
 #include "LevelBuilder.h"
+#include "../ADTStructures/LinkedList.cpp"
 
 
 
 class ViewManager {
 public:
-    int Height = 200;
+    int Height = 500;
 
-    int Width = 200;
+    int Width = 500;
 
     void showDisplay();
 
@@ -48,7 +50,7 @@ private:
     ViewManager();
 
 
-    void drawPath(LinkedList<NodeGraph<int> *> *pList);
+    void drawPath(std::list<Cell<int>*> *pList);
 };
 
 

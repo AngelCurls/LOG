@@ -14,6 +14,7 @@ public:
     LinkedList();
 
     void add(T data);
+    void addFirst(T data);
     int getWeight(int index);
     void setWeight(int index, int weight);
     T get(int index);

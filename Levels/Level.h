@@ -6,11 +6,13 @@
 #define LOG_LEVEL_H
 
 
+
 #include "../ADTStructures/Graph.h"
+#include <list>
 
 class Level {
 public:
-    virtual LinkedList<NodeGraph<int> *> * getPath(Graph<int> *graph, int xPlayer, int yPlayer, int xTarget,
+    virtual std::list<Cell<int>*>* getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
                                                    int yTarget);
 
 };
