@@ -6,8 +6,6 @@
 #define LOG_ASTAR_H
 
 
-#include "../ADT/Node.h"
-#include "../ADT/GraphAM.h"
 #include "../ADTStructures/Graph.h"
 #include <list>
 #include <algorithm>

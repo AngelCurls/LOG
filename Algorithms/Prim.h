@@ -6,13 +6,13 @@
 #define LOG_PRIM_H
 
 
-#include "../ADT/GraphAM.h"
+#include "../ADTStructures/Graph.h"
 
 class Prim {
 public:
-    static void findPath(GraphAM* graphAM, int iStart, int jStart, int iTarget, int jTarget);
+    static void findPath(Graph* graph, int iStart, int jStart, int iTarget, int jTarget);
 private:
-    static GraphAM* findMST(GraphAM* graphAM, int iStart, int jStart, int iTarget, int jTarget);
+    static Graph* findMST(Graph* graphAM, int iStart, int jStart, int iTarget, int jTarget);
 
 
 };
