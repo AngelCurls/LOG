@@ -16,7 +16,7 @@
 
 
 
-class ViewManager {
+class Game {
 public:
     int Height = 500;
 
@@ -24,7 +24,7 @@ public:
 
     void showDisplay();
 
-    static ViewManager* getInstance();
+    static Game* getInstance();
 
     void destroyWindow();
 
@@ -36,10 +36,10 @@ public:
 
     ALLEGRO_DISPLAY *getPtrDisplay() const;
 
-    virtual ~ViewManager();
+    virtual ~Game();
 
 private:
-    ViewManager* viewManagerInstance = nullptr;
+    Game* viewManagerInstance = nullptr;
     bool showing = false;
     ALLEGRO_DISPLAY* ptrDisplay = nullptr;
     void mainLoop();
@@ -47,7 +47,7 @@ private:
     ALLEGRO_TIMER* timerDraw;
     ALLEGRO_EVENT_QUEUE* eventQueue;
 
-    ViewManager();
+    Game();
 
 
     void drawPath(std::list<Cell<int>*> *pList);
