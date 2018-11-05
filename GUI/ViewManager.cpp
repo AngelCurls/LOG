@@ -4,8 +4,7 @@
 
 #include "ViewManager.h"
 #include <allegro5/allegro_primitives.h>
-
-
+#include <allegro5/allegro_font.h>
 
 ViewManager::ViewManager() {
     al_init();
@@ -48,6 +47,7 @@ void ViewManager::mainLoop() {
     al_start_timer(this->timer);
     al_start_timer(this->timerDraw);
 
+    ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
     Graph* graph = new Graph();
     graph->generateGrid();
@@ -73,19 +73,14 @@ void ViewManager::mainLoop() {
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    xGraph = mouseState.x;
-                    yGraph = mouseState.y;
-
-                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 49,49);
-
-
-
-
-
-
+                    if (mouseState.x >= 0 && mouseState.y >= 0) {
+                        xGraph = mouseState.x;
+                        yGraph = mouseState.y;
+                    }
+                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
                 }
 
-            } else if ( event.timer.source == this->timerDraw){
+            } else if (event.timer.source == this->timerDraw){
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawPath(path);
                 al_flip_display();
