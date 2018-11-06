@@ -15,7 +15,7 @@
  */
 class Graph {
 public:
-    Graph(int height = 100, int width = 100);
+    Graph(int height = 100, int width = 100, int level = 4);
 
 private:
     int height;

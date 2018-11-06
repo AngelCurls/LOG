@@ -3,6 +3,7 @@
 //
 
 #include "ViewManager.h"
+#include "GameObjects/PlayerPopulation.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 
@@ -51,6 +52,8 @@ void ViewManager::mainLoop() {
 
     Graph* graph = new Graph();
     graph->generateGrid();
+    PlayerPopulation* playerPopulation = new PlayerPopulation();
+    playerPopulation->setMap(graph);
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
@@ -77,13 +80,16 @@ void ViewManager::mainLoop() {
                         xGraph = mouseState.x;
                         yGraph = mouseState.y;
                     }
-                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
+                    playerPopulation->moveToPath(xGraph/10,yGraph/10);
+                    //path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
                 }
 
             } else if (event.timer.source == this->timerDraw){
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawPath(path);
+                playerPopulation->draw();
                 drawObstacles(graph);
+
                 al_flip_display();
 
             }
@@ -151,6 +157,16 @@ void ViewManager::drawObstacles(Graph *graph) {
                                          cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
                                          al_map_rgb(0, 0, 0));
             }
+            /*if (cellCurrent->getObjectID() == 2) {
+                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
+                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
+                                         al_map_rgb(0, 255, 0));
+            }if (cellCurrent->getObjectID() == 3) {
+                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
+                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
+                                         al_map_rgb(255, 0, 0));
+            }
+*/
         }
 
     }
