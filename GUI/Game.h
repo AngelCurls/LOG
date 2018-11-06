@@ -1,3 +1,4 @@
+//
 // Created by jglez2330 on 25/10/18.
 //
 
@@ -15,15 +16,15 @@
 
 
 
-class ViewManager {
+class Game {
 public:
-    int Height = 1000;
+    int Height = 500;
 
-    int Width = 1000;
+    int Width = 500;
 
     void showDisplay();
 
-    static ViewManager* getInstance();
+    static Game* getInstance();
 
     void destroyWindow();
 
@@ -35,12 +36,10 @@ public:
 
     ALLEGRO_DISPLAY *getPtrDisplay() const;
 
-    virtual ~ViewManager();
-
-    void drawObstacles(Graph* graph);
+    virtual ~Game();
 
 private:
-    ViewManager* viewManagerInstance = nullptr;
+    Game* viewManagerInstance = nullptr;
     bool showing = false;
     ALLEGRO_DISPLAY* ptrDisplay = nullptr;
     void mainLoop();
@@ -48,7 +47,7 @@ private:
     ALLEGRO_TIMER* timerDraw;
     ALLEGRO_EVENT_QUEUE* eventQueue;
 
-    ViewManager();
+    Game();
 
 
     void drawPath(std::list<Cell<int>*> *pList);

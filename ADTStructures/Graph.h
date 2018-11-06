@@ -15,7 +15,7 @@
  */
 class Graph {
 public:
-    Graph(int height = 50, int width = 50);
+    Graph(int height = 100, int width = 100);
 
 private:
     int height;
@@ -65,6 +65,7 @@ public:
      */
     Cell<int>* getNode(int i , int j);
 
+    int* loadMap(int lvl);
 
     /**
      * Destructor de la clase

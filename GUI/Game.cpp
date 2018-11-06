@@ -2,11 +2,13 @@
 // Created by jglez2330 on 25/10/18.
 //
 
-#include "ViewManager.h"
+#include "Game.h"
+#include "../ADTStructures/Graph.cpp"
 #include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
 
-ViewManager::ViewManager() {
+
+
+Game::Game() {
     al_init();
     al_install_mouse();
     al_init_image_addon();
@@ -33,25 +35,24 @@ ViewManager::ViewManager() {
 
 }
 
-void ViewManager::showDisplay() {
-    //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
+void Game::showDisplay() {
+    //std::thread displayThread(&Game::mainLoop,this->viewManagerInstance);
     //displayThread.join();
-mainLoop();
+    mainLoop();
 
 }
 
-void ViewManager::mainLoop() {
+void Game::mainLoop() {
     this->ptrDisplay = al_create_display(this->Height,this->Width);
     al_register_event_source(this->eventQueue,al_get_display_event_source(this->ptrDisplay));
 
     al_start_timer(this->timer);
     al_start_timer(this->timerDraw);
 
-    ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph();
-    graph->generateGrid();
-    std::list<Cell<int>*>* path = nullptr;
+    Graph<int>* graph = new Graph<int>();
+    graph->gridGenerator(20, 20);
+    LinkedList<NodeGraph<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
     int yGraph;
@@ -67,25 +68,32 @@ void ViewManager::mainLoop() {
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             showing = false;
             destroyWindow();
-        }else if (event.type == ALLEGRO_EVENT_TIMER){
+        } else if (event.type == ALLEGRO_EVENT_TIMER){
             if (event.timer.source == this->timer){
                 al_get_mouse_state(&mouseState);
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    if (mouseState.x >= 0 && mouseState.y >= 0) {
-                        xGraph = mouseState.x;
-                        yGraph = mouseState.y;
-                    }
-                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
+                    //al_get_mouse_cursor_position(&xGraph,&yGraph);
+                    xGraph = mouseState.x;
+                    yGraph = mouseState.y;
+                    //std::cout<< xGraph << ";" << yGraph << std::endl;
+                    //al_get_mouse_state(&mouseState);
+                    std::cout<< "funka";
+                    path = gameLevel->getPath(graph, xGraph/10, yGraph/10, 0, 0);
+
+                    std::cout<< "funka";
+
+                    levelNumber++;
+
+
+
                 }
 
-            } else if (event.timer.source == this->timerDraw){
-                al_clear_to_color(al_map_rgb(255,255,255));
+            } else if ( event.timer.source == this->timerDraw){
+                al_clear_to_color(al_map_rgb(255, 255, 255));
                 drawPath(path);
-                drawObstacles(graph);
                 al_flip_display();
-
             }
         }
 
@@ -95,64 +103,53 @@ void ViewManager::mainLoop() {
 
 }
 
-ViewManager* ViewManager::getInstance() {
-    ViewManager* ptrInstance = new ViewManager();
+Game* Game::getInstance() {
+    Game* ptrInstance = new Game();
     ptrInstance->viewManagerInstance = ptrInstance;
     return ptrInstance;
 }
 
-bool ViewManager::isShowing() const {
+bool Game::isShowing() const {
     return showing;
 }
 
-void ViewManager::destroyWindow() {
+void Game::destroyWindow() {
     showing = false;
     al_destroy_display(this->ptrDisplay);
 
 }
 
-int ViewManager::getHeight() const {
+int Game::getHeight() const {
     return Height;
 }
 
-int ViewManager::getWidth() const {
+int Game::getWidth() const {
     return Width;
 }
 
-ALLEGRO_DISPLAY* ViewManager::getPtrDisplay() const {
+ALLEGRO_DISPLAY *Game::getPtrDisplay() const {
     return ptrDisplay;
 }
 
-ViewManager::~ViewManager() {
+Game::~Game() {
     delete(viewManagerInstance);
     if (showing){
         this->destroyWindow();
     }
 }
 
-
-void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
+void Game::drawPath(LinkedList<NodeGraph<int> *> *pList) {
     if (pList != nullptr) {
-        for (auto currentCell : *pList) {
+        for (int i = 0; i < pList->getSize(); i++) {
+            NodeGraph<int> *node = pList->get(i);
             //al_draw_rectangle((float)node->getXpos(),(float)node->getYpos(),node->getXpos() + this->getWidth()/19,node->getXpos() + this->getWidth()/19,al_map_rgb(0, 255, 0), 255);
-            float x = (float) currentCell->getXpos();
-            float y = (float) currentCell->getYpos();
-            al_draw_filled_rectangle(x*10, y*10 ,x*10+10,y*10+10, al_map_rgb(0, 255, 255));
-        }
-    }
-}
-
-void ViewManager::drawObstacles(Graph *graph) {
-    for (int i = 0; i < graph->getHeight() ; i++) {
-        for (int j = 0; j < graph->getWidth() ; j++) {
-            Cell<int>* cellCurrent = graph->getKeyTable()[i][j];
-            if (cellCurrent->getObjectID() == 10000) {
-                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
-                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
-                                         al_map_rgb(0, 0, 0));
-            }
+            float x = (float) node->getXpos();
+            float y = (float) node->getYpos();
+            al_draw_filled_rectangle(x * this->getHeight() / 20, y * this->getWidth() / 20,
+                                     x * this->getHeight() / 20 + this->getHeight() / 20,
+                                     y * this->getWidth() / 20 + this->getWidth() / 20, al_map_rgb(0, 255, 255));
         }
 
-    }
 
+    }
 }

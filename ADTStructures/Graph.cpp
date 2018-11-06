@@ -88,6 +88,36 @@ void Graph::addEdge(Cell<int> *CellFrom, Cell<int> *CellTo) {
 
 }
 
+int* Graph::loadMap(int lvl) {
+    FILE *myFile;
+    if (lvl == 1) myFile = fopen("../Resources/2500array1.txt", "r");
+    if (lvl == 2) myFile = fopen("../Resources/2500array2.txt", "r");
+    if (lvl == 3) myFile = fopen("../Resources/2500array3.txt", "r");
+    if (lvl == 4) myFile = fopen("../Resources/2500array4.txt", "r");
+    if (lvl == 5) myFile = fopen("../Resources/2500array5.txt", "r");
+
+    //read file into array
+    int numberArray[2500];
+    int i;
+
+    if (myFile == NULL){
+        printf("Error Reading File\n");
+        exit (0);
+    }
+
+    for (i = 0; i < 2500; i++){
+        fscanf(myFile, "%d,", &numberArray[i] );
+    }
+
+    for (i = 0; i < 2500; i++){
+        printf("Number is: %d\n\n", numberArray[i]);
+    }
+
+    fclose(myFile);
+
+    return numberArray;
+}
+
 Graph::~Graph() {
 
     //TODO: Desarrollar el destructor
