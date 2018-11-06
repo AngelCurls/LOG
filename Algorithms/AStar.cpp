@@ -33,7 +33,7 @@ std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, in
                 path->push_front(current);
                 current = current->getPrevious();
             }
-            break;
+            return path;
         }
 
         openList.erase(current);
@@ -53,12 +53,25 @@ std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, in
             } else if (tempScoreG >= neighborCurrentCell->getG()){
                 continue;
             }
+            if (neighborCurrentCell->getObjectID() == 10000){
+                openList.erase(neighborCurrentCell);
+                closedList.insert(neighborCurrentCell);
+            }
 
             neighborCurrentCell->setPrevious(current);
             neighborCurrentCell->setG(tempScoreG);
 
         }
 
+    }
+    while (current != nullptr){
+        if (current == start){
+            path->push_front(current);
+            break;
+        }
+
+        path->push_front(current);
+        current = current->getPrevious();
     }
     return path;
 }

@@ -88,7 +88,9 @@ void ViewManager::mainLoop() {
             } else if ( event.timer.source == this->timerDraw){
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawPath(path);
+                drawObstacles(graph);
                 al_flip_display();
+
             }
         }
 
@@ -133,6 +135,7 @@ ViewManager::~ViewManager() {
     }
 }
 
+
 void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
     if (pList != nullptr) {
         for (auto currentCell : *pList) {
@@ -142,4 +145,19 @@ void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
             al_draw_filled_rectangle(x*10, y*10 ,x*10+10,y*10+10, al_map_rgb(0, 255, 255));
         }
     }
+}
+
+void ViewManager::drawObstacles(Graph *graph) {
+    for (int i = 0; i < graph->getHeight() ; i++) {
+        for (int j = 0; j < graph->getWidth() ; j++) {
+            Cell<int>* cellCurrent = graph->getKeyTable()[i][j];
+            if (cellCurrent->getObjectID() == 10000) {
+                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
+                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
+                                         al_map_rgb(0, 0, 0));
+            }
+        }
+
+    }
+
 }

@@ -18,7 +18,7 @@ Graph::Graph(int height,int width) {
 
         for (int j = 0; j < this->width ; j++) {
 
-            currentCell = new Cell<int>(i,j, rand() % this->CantObstaculos);
+            currentCell = new Cell<int>(i,j, rand() % this->CantTypeObstaculos);
             this->keyTable[i][j] = currentCell;
             currentCell->setHashKey(key);
 
@@ -81,8 +81,8 @@ void Graph::restoreGraph() {
 }
 
 void Graph::addEdge(Cell<int> *CellFrom, Cell<int> *CellTo) {
-    int keyFrom = CellFrom->getHashKey();
-    this->adjacencyList[keyFrom].insert(CellTo);
+        int keyFrom = CellFrom->getHashKey();
+        this->adjacencyList[keyFrom].insert(CellTo);
 
 
 
@@ -101,4 +101,16 @@ std::set<Cell<int> *> Graph::getNodeAdjacencyList(int i, int j) {
 
 Cell<int> *Graph::getNode(int i, int j) {
     return this->keyTable[i][j];
+}
+
+int Graph::getHeight() const {
+    return height;
+}
+
+int Graph::getWidth() const {
+    return width;
+}
+
+Cell<int> ***Graph::getKeyTable() const {
+    return keyTable;
 }

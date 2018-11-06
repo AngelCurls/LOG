@@ -38,6 +38,8 @@ public:
 
     virtual ~ViewManager();
 
+    void drawObstacles(Graph* graph);
+
 private:
     ViewManager* viewManagerInstance = nullptr;
     bool showing = false;

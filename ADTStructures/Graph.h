@@ -20,7 +20,7 @@ public:
 private:
     int height;
     int width;
-    int CantObstaculos = 2;
+    int CantTypeObstaculos = 3;
     Cell<int>*** keyTable;
     std::set<Cell<int>*>*adjacencyList;
 public:
@@ -70,6 +70,12 @@ public:
      * Destructor de la clase
      */
     virtual ~Graph();
+
+    int getHeight() const;
+
+    int getWidth() const;
+
+    Cell<int> ***getKeyTable() const;
 
 
 };
