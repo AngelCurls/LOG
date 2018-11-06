@@ -17,9 +17,11 @@
 
 class ViewManager {
 public:
-    int Height = 1000;
+    int Height = 500;
 
-    int Width = 1000;
+    int Width = 500;
+
+    float relationRatio = 10;
 
     void showDisplay();
 

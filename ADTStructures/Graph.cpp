@@ -1,10 +1,11 @@
 #include "Graph.h"
 
-Graph::Graph(int height,int width) {
+Graph::Graph(int height,int width, int level) {
 
     int key = 0;
     Cell<int>* currentCell = nullptr;
-    srand(time(nullptr));
+    //srand(time(nullptr));
+    auto map = this->loadMap(level);
     //Determina el tamaño del grafo
     this->height = height;
     this->width = width;
@@ -18,9 +19,10 @@ Graph::Graph(int height,int width) {
 
         for (int j = 0; j < this->width ; j++) {
 
-            currentCell = new Cell<int>(i,j, rand() % this->CantTypeObstaculos);
+            currentCell = new Cell<int>(i,j);
             this->keyTable[i][j] = currentCell;
             currentCell->setHashKey(key);
+            currentCell->setObjectID(map[key]);
 
             //Aumenta la llave del siguiente elemento
             key++;
@@ -29,6 +31,7 @@ Graph::Graph(int height,int width) {
         }
 
     }
+    delete(map);
 
 }
 
@@ -97,7 +100,8 @@ int* Graph::loadMap(int lvl) {
     if (lvl == 5) myFile = fopen("../Resources/2500array5.txt", "r");
 
     //read file into array
-    int numberArray[2500];
+    int* numberArray;
+    numberArray = new int[2500];
     int i;
 
     if (myFile == NULL){
@@ -114,6 +118,7 @@ int* Graph::loadMap(int lvl) {
     }
 
     fclose(myFile);
+
 
     return numberArray;
 }

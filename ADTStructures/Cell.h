@@ -16,11 +16,9 @@ public:
 
     T getXpos() const;
 
-    void setXpos(T Xpos);
 
     T getYpos() const;
 
-    void setYpos(T Ypos);
 
     int getHeuristic() const;
 
@@ -34,22 +32,17 @@ public:
 
     void setPrevious(Cell<T> *previous);
 
-    int getF() const;
-
-    void setF(int F);
 
     int getHashKey() const;
 
     void setHashKey(int hashKey);
 
-    bool operator < (Cell<int>* cellToCompare);
 private:
     T Xpos;
     T Ypos;
-    int ObjectID = 10000;
+    int ObjectID = 0;
     int g = 10000;
     int Heuristic = 0;
-    int F = 10000;
     int hashKey;
     Cell<T>* previous;
 
