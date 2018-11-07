@@ -1,5 +1,5 @@
 #include "ViewManager.h"
-#include "GameObjects/PlayerPopulation.h"
+#include "GameObjects/Population.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 
@@ -46,10 +46,14 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph(100,100,4);
+    Graph* graph = new Graph();
     graph->generateGrid();
-    PlayerPopulation* playerPopulation = new PlayerPopulation();
-    playerPopulation->setMap(graph);
+
+    //Population* playerPopulation = new Population();
+    //playerPopulation->setMap(graph);
+
+    Player* player = new Player;
+
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
@@ -67,7 +71,7 @@ void ViewManager::mainLoop() {
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             showing = false;
             destroyWindow();
-        }else if (event.type == ALLEGRO_EVENT_TIMER){
+        } else if (event.type == ALLEGRO_EVENT_TIMER){
             if (event.timer.source == this->timer){
                 al_get_mouse_state(&mouseState);
 
@@ -78,19 +82,23 @@ void ViewManager::mainLoop() {
                         yGraph = mouseState.y / this->relationRatio;
                     }
                     //playerPopulation->moveToPath(xGraph/10,yGraph/10);
-                    path = gameLevel->getPath(graph,xGraph,yGraph,10, 39);
 
-
+                    player->path = gameLevel->getPath(graph,xGraph,yGraph, player->getI(), player->getJ());
                 }
 
             } else if (event.timer.source == this->timerDraw){
+
+                if(player->path != nullptr) {
+                    player->setI(player->path->back()->getXpos());
+                    player->setJ(player->path->back()->getYpos());
+                    player->path->pop_back();
+                }
                 al_clear_to_color(al_map_rgb(255,255,255));
                 //playerPopulation->draw();
-                drawObstacles(graph);
-                drawPath(path);
-
+                drawMap(graph);
+                player->draw();
+                drawPath(player->path);
                 al_flip_display();
-
             }
         }
 
@@ -147,25 +155,23 @@ void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
     }
 }
 
-void ViewManager::drawObstacles(Graph *graph) {
+void ViewManager::drawMap(Graph *graph) {
     for (int i = 0; i < graph->getHeight() ; i++) {
         for (int j = 0; j < graph->getWidth() ; j++) {
             Cell<int>* cellCurrent = graph->getKeyTable()[i][j];
+            ALLEGRO_COLOR obstacleColor = al_map_rgb(255, 255, 255);
             if (cellCurrent->getObjectID() == 1) {
-                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
-                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
-                                         al_map_rgb(0, 0, 0));
+                obstacleColor = al_map_rgb(0, 0, 0);
             }
-            /*if (cellCurrent->getObjectID() == 2) {
-                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
-                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
-                                         al_map_rgb(0, 255, 0));
-            }if (cellCurrent->getObjectID() == 3) {
-                al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
-                                         cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
-                                         al_map_rgb(255, 0, 0));
+            else if (cellCurrent->getObjectID() == 2) {
+               obstacleColor = al_map_rgb(0, 255, 0);
             }
-*/
+            else if (cellCurrent->getObjectID() == 3) {
+                obstacleColor = al_map_rgb(255, 0, 0);
+            }
+            al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
+                                     cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
+                                     obstacleColor);
         }
 
     }

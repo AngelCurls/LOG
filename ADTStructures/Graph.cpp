@@ -113,12 +113,7 @@ int* Graph::loadMap(int lvl) {
         fscanf(myFile, "%d,", &numberArray[i] );
     }
 
-    for (i = 0; i < 2500; i++){
-        printf("Number is: %d\n\n", numberArray[i]);
-    }
-
     fclose(myFile);
-
 
     return numberArray;
 }

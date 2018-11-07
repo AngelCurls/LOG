@@ -10,11 +10,11 @@
 #include "../ViewManager.h"
 #include <list>
 
-class PlayerPopulation: Player {
+class Population: Player {
 public:
-    PlayerPopulation();
-    void moveToPath(int i , int j);
-    void draw() override;
+    Population();
+    void moveToPath(int i, int j);
+    void draw();
 
     Graph *getMap() const;
 

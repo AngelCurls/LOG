@@ -5,17 +5,25 @@
 #ifndef LOG_PLAYER_H
 #define LOG_PLAYER_H
 
-#include "AliveObject.h"
 #include "../../ADTStructures/Cell.h"
 #include <list>
 
-class Player : AliveObject {
+class Player {
 public:
     Player();
-    void draw() override;
+
+    void draw();
     void draw(std::list<Cell<int>*>* path);
 
     std::list<Cell<int>*>* path = nullptr;
+
+    bool isMoving();
+
+    void setMoving(bool moving);
+
+    bool getSpeed();
+
+    void setSpeed(int speed);
 
     int getI() const;
 
@@ -31,8 +39,9 @@ public:
 
 private:
     int i = 0;
-    int j = 0;
-
+    int j = 49;
+    int moving = false;
+    int speed = 100;
 };
 
 

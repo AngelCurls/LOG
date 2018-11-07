@@ -40,7 +40,7 @@ public:
 
     virtual ~ViewManager();
 
-    void drawObstacles(Graph* graph);
+    void drawMap(Graph *graph);
 
 private:
     ViewManager* viewManagerInstance = nullptr;
