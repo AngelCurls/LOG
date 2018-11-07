@@ -46,7 +46,7 @@ public:
 private:
     T Xpos;
     T Ypos;
-    int ObjectID = 10000;
+    int ObjectID = 1;
     int g = 10000;
     int Heuristic = 0;
     int F = 10000;

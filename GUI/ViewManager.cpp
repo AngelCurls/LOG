@@ -1,7 +1,3 @@
-//
-// Created by jglez2330 on 25/10/18.
-//
-
 #include "ViewManager.h"
 #include "GameObjects/PlayerPopulation.h"
 #include <allegro5/allegro_primitives.h>
@@ -37,7 +33,7 @@ ViewManager::ViewManager() {
 void ViewManager::showDisplay() {
     //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
     //displayThread.join();
-mainLoop();
+    mainLoop();
 
 }
 
@@ -50,7 +46,7 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph();
+    Graph* graph = new Graph(100,100,4);
     graph->generateGrid();
     PlayerPopulation* playerPopulation = new PlayerPopulation();
     playerPopulation->setMap(graph);
@@ -80,15 +76,15 @@ void ViewManager::mainLoop() {
                         xGraph = mouseState.x;
                         yGraph = mouseState.y;
                     }
-                    playerPopulation->moveToPath(xGraph/10,yGraph/10);
-                    //path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
+                    //playerPopulation->moveToPath(xGraph/10,yGraph/10);
+                    path = gameLevel->getPath(graph,xGraph/10,yGraph/10, 0, 0);
                 }
 
             } else if (event.timer.source == this->timerDraw){
                 al_clear_to_color(al_map_rgb(255,255,255));
-                drawPath(path);
                 playerPopulation->draw();
                 drawObstacles(graph);
+                drawPath(path);
 
                 al_flip_display();
 
@@ -141,9 +137,9 @@ void ViewManager::drawPath(std::list<Cell<int>*>* pList) {
     if (pList != nullptr) {
         for (auto currentCell : *pList) {
             //al_draw_rectangle((float)node->getXpos(),(float)node->getYpos(),node->getXpos() + this->getWidth()/19,node->getXpos() + this->getWidth()/19,al_map_rgb(0, 255, 0), 255);
-            float x = (float) currentCell->getXpos();
-            float y = (float) currentCell->getYpos();
-            al_draw_filled_rectangle(x*10, y*10 ,x*10+10,y*10+10, al_map_rgb(0, 255, 255));
+            float x = (float) currentCell->getXpos() * 10;
+            float y = (float) currentCell->getYpos() * 10;
+            al_draw_filled_rectangle(x, y ,x+10,y +10, al_map_rgb(0, 255, 255));
         }
     }
 }
@@ -152,21 +148,21 @@ void ViewManager::drawObstacles(Graph *graph) {
     for (int i = 0; i < graph->getHeight() ; i++) {
         for (int j = 0; j < graph->getWidth() ; j++) {
             Cell<int>* cellCurrent = graph->getKeyTable()[i][j];
-            if (cellCurrent->getObjectID() == 10000) {
+            if (cellCurrent->getObjectID() == 1) {
                 al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
                                          cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
                                          al_map_rgb(0, 0, 0));
             }
-            /*if (cellCurrent->getObjectID() == 2) {
+            if (cellCurrent->getObjectID() == 2) {
                 al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
                                          cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
                                          al_map_rgb(0, 255, 0));
-            }if (cellCurrent->getObjectID() == 3) {
+            }if (cellCurrent->getObjectID() == 6) {
                 al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
                                          cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
                                          al_map_rgb(255, 0, 0));
             }
-*/
+
         }
 
     }

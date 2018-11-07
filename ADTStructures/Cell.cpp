@@ -6,9 +6,7 @@
 
 template<typename T>
 Cell<T>::Cell(T Xpos, T Ypos, int objectID):Xpos(Xpos), Ypos(Ypos){
-    if (objectID != 1){
-        this->ObjectID = objectID;
-    }
+
     this->previous = nullptr;
 }
 

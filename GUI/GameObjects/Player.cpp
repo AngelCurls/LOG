@@ -20,8 +20,7 @@ void Player::draw() {
                     al_draw_filled_rectangle(x, y, x + 10, y + 10, al_map_rgb(155, 155, 155));
 
             }
-            delete(path);
-            path = nullptr;
+
 
         }
     float x = i * 10;
