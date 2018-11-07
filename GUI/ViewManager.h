@@ -5,6 +5,7 @@
 #define LOG_VIEWMANAGER_H
 
 #include "allegro5/allegro.h"
+#include "allegro5/allegro_image.h"
 #include <thread>
 #include <iostream>
 #include <list>
@@ -49,11 +50,13 @@ private:
     ALLEGRO_TIMER* timer;
     ALLEGRO_TIMER* timerDraw;
     ALLEGRO_EVENT_QUEUE* eventQueue;
+    ALLEGRO_BITMAP* image;
 
     ViewManager();
 
 
     void drawPath(std::list<Cell<int>*> *pList);
+
 };
 
 

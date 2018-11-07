@@ -93,11 +93,11 @@ void Graph::addEdge(Cell<int> *CellFrom, Cell<int> *CellTo) {
 
 int* Graph::loadMap(int lvl) {
     FILE *myFile;
-    if (lvl == 1) myFile = fopen("../Resources/2500array1.txt", "r");
-    if (lvl == 2) myFile = fopen("../Resources/2500array2.txt", "r");
-    if (lvl == 3) myFile = fopen("../Resources/2500array3.txt", "r");
-    if (lvl == 4) myFile = fopen("../Resources/2500array4.txt", "r");
-    if (lvl == 5) myFile = fopen("../Resources/2500array5.txt", "r");
+    if (lvl == 1) myFile = fopen("../Resources/level1.txt", "r");
+    if (lvl == 2) myFile = fopen("../Resources/level2.txt", "r");
+    if (lvl == 3) myFile = fopen("../Resources/level3.txt", "r");
+    if (lvl == 4) myFile = fopen("../Resources/level4.txt", "r");
+    if (lvl == 5) myFile = fopen("../Resources/level5.txt", "r");
 
     //read file into array
     int* numberArray;

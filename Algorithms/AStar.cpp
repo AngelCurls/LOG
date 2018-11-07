@@ -23,8 +23,12 @@ std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, in
     while (!openList.empty()){
         current = minF(openList,target);
 
-        if (current == target){
+        if (current == target ){
+            if (target->getObjectID() == 1){
+                current = current->getPrevious();
+            }
             while (current != nullptr){
+
                 if (current == start){
                     path->push_front(current);
                     break;
@@ -59,6 +63,7 @@ std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, in
             if (neighborCurrentCell->getObjectID() == 1){
                 openList.erase(neighborCurrentCell);
                 closedList.insert(neighborCurrentCell);
+                continue;
             }
 
             neighborCurrentCell->setPrevious(current);

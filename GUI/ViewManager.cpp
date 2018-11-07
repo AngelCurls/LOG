@@ -1,7 +1,3 @@
-//
-// Created by jglez2330 on 25/10/18.
-//
-
 #include "ViewManager.h"
 #include "GameObjects/PlayerPopulation.h"
 #include <allegro5/allegro_primitives.h>
@@ -37,7 +33,7 @@ ViewManager::ViewManager() {
 void ViewManager::showDisplay() {
     //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
     //displayThread.join();
-mainLoop();
+    mainLoop();
 
 }
 
@@ -50,7 +46,7 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph();
+    Graph* graph = new Graph(100,100,4);
     graph->generateGrid();
     PlayerPopulation* playerPopulation = new PlayerPopulation();
     playerPopulation->setMap(graph);

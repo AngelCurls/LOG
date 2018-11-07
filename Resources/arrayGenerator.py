@@ -5,7 +5,7 @@ def arrayToString(array):
 
 def createRandomArray():
     array = []
-    for i in range(0, 2500):
+    for i in range(0, 10000):
         rnd = random.randint(0, 15)
         if(rnd == 1):
             array.append('1 ')
@@ -22,23 +22,23 @@ def writeFiles():
     levelsToCreate = [1, 2, 3, 4, 5]
 
     if 1 in levelsToCreate:
-        file = open("2500array1.txt", "w")
+        file = open("level1.txt", "w")
         file.write(arrayToString(createRandomArray()))
         file.close()
     if 2 in levelsToCreate:
-        file = open("2500array2.txt", "w")
+        file = open("level2.txt", "w")
         file.write(arrayToString(createRandomArray()))
         file.close()
     if 3 in levelsToCreate:
-        file = open("2500array3.txt", "w")
+        file = open("level3.txt", "w")
         file.write(arrayToString(createRandomArray()))
         file.close()
     if 4 in levelsToCreate:
-        file = open("2500array4.txt", "w")
+        file = open("level4.txt", "w")
         file.write(arrayToString(createRandomArray()))
         file.close()
     if 5 in levelsToCreate:
-        file = open("2500array5.txt", "w")
+        file = open("level5.txt", "w")
         file.write(arrayToString(createRandomArray()))
         file.close()
 
