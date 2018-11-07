@@ -11,6 +11,7 @@
 class Player {
 public:
     Player();
+    Player(int y);
 
     void draw();
     void draw(std::list<Cell<int>*>* path);

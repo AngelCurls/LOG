@@ -13,12 +13,16 @@
 class Population: Player {
 public:
     Population();
-    void moveToPath(int i, int j);
+    void moveToPath(Level* gameLevel, int xGraph, int yGraph);
     void draw();
+
+    Player* getPlayers();
 
     Graph *getMap() const;
 
     void setMap(Graph *map);
+
+    void updatePlayers();
 
 private:
 

@@ -49,11 +49,9 @@ void ViewManager::mainLoop() {
     Graph* graph = new Graph();
     graph->generateGrid();
 
-    //Population* playerPopulation = new Population();
-    //playerPopulation->setMap(graph);
-
-    Player* player = new Player;
-
+    Population* playerPopulation = new Population();
+    playerPopulation->setMap(graph);
+    
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
@@ -81,23 +79,14 @@ void ViewManager::mainLoop() {
                         xGraph = mouseState.x / this->relationRatio;
                         yGraph = mouseState.y / this->relationRatio;
                     }
-                    //playerPopulation->moveToPath(xGraph/10,yGraph/10);
-
-                    player->path = gameLevel->getPath(graph,xGraph,yGraph, player->getI(), player->getJ());
+                    playerPopulation->moveToPath(gameLevel, xGraph, yGraph);
                 }
 
             } else if (event.timer.source == this->timerDraw){
-
-                if(player->path != nullptr) {
-                    player->setI(player->path->back()->getXpos());
-                    player->setJ(player->path->back()->getYpos());
-                    player->path->pop_back();
-                }
+                playerPopulation->updatePlayers();
                 al_clear_to_color(al_map_rgb(255,255,255));
-                //playerPopulation->draw();
                 drawMap(graph);
-                player->draw();
-                drawPath(player->path);
+                playerPopulation->draw();
                 al_flip_display();
             }
         }

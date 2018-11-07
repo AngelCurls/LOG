@@ -5,8 +5,10 @@
 #include <allegro5/allegro_primitives.h>
 #include "Player.h"
 
-
 Player::Player() {}
+Player::Player(int y) {
+    j = y;
+}
 
 void Player::draw() {
     if (path != nullptr) {

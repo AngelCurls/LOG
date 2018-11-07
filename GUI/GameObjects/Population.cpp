@@ -7,32 +7,38 @@
 
 Population::Population() {
     for (int i = 0; i < 5; i++) {
-        this->players[i] = new Player();
-        if (i != 0){
-            players[i]->setI(players[i-1]->getI() + 1);
-            players[i]->setJ(players[0]->getJ());
-        }
+        this->players[i] = new Player(49 - 3 * i);
     }
 
 }
 
 void Population::draw() {
-    for (int i = 0; i <5 ; i++) {
+    for (int i = 0; i < 5 ; i++) {
         players[i]->draw();
-        players[i]->setPath(nullptr);
+        //players[i]->setPath(nullptr);
     }
 
 }
 
-
-
-void Population::moveToPath(int i, int j) {
-
-    for (int k = 0; k < 5 ; k++) {
+void Population::moveToPath(Level* gameLevel, int xGraph, int yGraph) {
+    for (int i = 0; i < 5 ; i++) {
+        players[i]->path = gameLevel->getPath(map, xGraph, yGraph, players[i]->getI(), players[i]->getJ());
+        /*
         std::list<Cell<int> *> *path = AStar::findPath(this->map, players[k]->getI(), this->getJ(), i + k, j);
         players[k]->setPath(path);
+         */
     }
 
+}
+
+void Population::updatePlayers() {
+    for (int i = 0; i < 5; i++) {
+        if(players[i]->path != nullptr) {
+            players[i]->setI(players[i]->path->back()->getXpos());
+            players[i]->setJ(players[i]->path->back()->getYpos());
+            players[i]->path->pop_back();
+        }
+    }
 }
 
 Graph *Population::getMap() const {
