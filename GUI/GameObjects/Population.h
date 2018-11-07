@@ -13,7 +13,7 @@
 class Population: Player {
 public:
     Population();
-    void moveToPath(Level* gameLevel, int xGraph, int yGraph);
+    void setPath(Level *gameLevel, int xGraph, int yGraph);
     void draw();
 
     Player* getPlayers();

@@ -51,7 +51,7 @@ void ViewManager::mainLoop() {
 
     Population* playerPopulation = new Population();
     playerPopulation->setMap(graph);
-    
+
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     int levelNumber = 0;
@@ -79,14 +79,14 @@ void ViewManager::mainLoop() {
                         xGraph = mouseState.x / this->relationRatio;
                         yGraph = mouseState.y / this->relationRatio;
                     }
-                    playerPopulation->moveToPath(gameLevel, xGraph, yGraph);
+                    playerPopulation->setPath(gameLevel, xGraph, yGraph); // Le da un path a todos los jugadores según el lugar donde se dio click
                 }
 
             } else if (event.timer.source == this->timerDraw){
-                playerPopulation->updatePlayers();
+                playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawMap(graph);
-                playerPopulation->draw();
+                playerPopulation->draw(); // Dibuja todos los jugadores
                 al_flip_display();
             }
         }
