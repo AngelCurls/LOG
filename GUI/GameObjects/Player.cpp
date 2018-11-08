@@ -59,3 +59,7 @@ void Player::setJ(int j) {
     Player::j = j;
 }
 
+void Player::setSpeed(int speed) {
+    this->speed = speed;
+
+}

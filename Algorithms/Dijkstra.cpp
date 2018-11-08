@@ -45,7 +45,7 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
         for ( Cell<int>* neightbor : neightbors) {
             int tempDistance = minCell->getDijkstraDistance() + 1;
 
-            if (neightbor->getDijkstraDistance() > tempDistance){
+            if (neightbor->getDijkstraDistance() > tempDistance && neightbor->getObjectID() == 0){
                 neightbor->setDijkstraDistance(tempDistance);
                 neightbor->setPrevious(minCell);
                 Nodos.push(neightbor);
