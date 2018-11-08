@@ -34,9 +34,13 @@ void Population::setPath(Level *gameLevel, int xGraph, int yGraph) {
 void Population::updatePlayers() {
     for (int i = 0; i < 5; i++) {
         if(players[i]->path != nullptr) {
-            players[i]->setI(players[i]->path->back()->getXpos()); // La nueva posición en X es la coordenada en X de la próxima casilla a la que se debe dirigir
-            players[i]->setJ(players[i]->path->back()->getYpos());// La nueva posición en Y es la coordenada en Y de la próxima casilla a la que se debe dirigir
-            players[i]->path->pop_back(); // Se elimina el grid por el que el jugador acaba de pasar
+            if (players[i]->getPath()->back() != nullptr) {
+                players[i]->setI(
+                        players[i]->path->back()->getXpos()); // La nueva posición en X es la coordenada en X de la próxima casilla a la que se debe dirigir
+                players[i]->setJ(
+                        players[i]->path->back()->getYpos());// La nueva posición en Y es la coordenada en Y de la próxima casilla a la que se debe dirigir
+                players[i]->path->pop_back(); // Se elimina el grid por el que el jugador acaba de pasar
+            }
         }
     }
 }
@@ -47,4 +51,12 @@ Graph *Population::getMap() const {
 
 void Population::setMap(Graph *map) {
     Population::map = map;
+}
+
+void Population::setPlayersSpeed(int speed) {
+    for (int k = 0; k < 5; k++) {
+
+        this->players[k]->setSpeed(speed);
+    }
+
 }

@@ -72,3 +72,17 @@ void Cell<T>::setHashKey(int hashKey) {
     Cell::hashKey = hashKey;
 }
 
+template<typename T>
+bool Cell<T>::operator<(Cell<T> *cellToCompare) {
+    return this->DijkstraDistance > cellToCompare->DijkstraDistance;
+}
+
+template<typename T>
+int Cell<T>::getDijkstraDistance() const {
+    return DijkstraDistance;
+}
+
+template<typename T>
+void Cell<T>::setDijkstraDistance(int DijkstraDistance) {
+    Cell::DijkstraDistance = DijkstraDistance;
+}

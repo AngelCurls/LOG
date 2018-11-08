@@ -5,8 +5,10 @@
 #include "AstarLevel.h"
 #include "../Algorithms/AStar.h"
 #include "../ADTStructures/LinkedList.h"
+#include "../Algorithms/Dijkstra.h"
+#include "../Algorithms/LineSight.h"
 
 std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
                                                    int yTarget) {
-    return AStar::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
+    return LineSight::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
 }

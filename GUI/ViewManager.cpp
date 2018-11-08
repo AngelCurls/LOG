@@ -103,7 +103,7 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph();
+    Graph* graph = new Graph(50,50,3);
     graph->generateGrid();
 
     Population* playerPopulation = new Population();
@@ -116,7 +116,7 @@ void ViewManager::mainLoop() {
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(levelNumber);
+    Level* gameLevel = LevelBuilder::getLevel(1);
     ALLEGRO_EVENT event;
     while (showing){
 

@@ -25,6 +25,8 @@ public:
 
     void updatePlayers();
 
+    void setPlayersSpeed(int speed);
+
 private:
 
     Graph* map;
