@@ -74,7 +74,7 @@ std::list<Cell<int> *> *AStar::findPath(Graph *graph, int iStart, int jStart, in
         }
 
     }
-    while (current != nullptr){
+    while (current != nullptr) {
         if (current == start){
             path->push_front(current);
             break;

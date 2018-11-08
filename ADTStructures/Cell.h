@@ -37,12 +37,19 @@ public:
 
     void setHashKey(int hashKey);
 
+    bool operator < (Cell<T>* cellToCompare);
+
+    int getDijkstraDistance() const;
+
+    void setDijkstraDistance(int DijkstraDistance);
+
 private:
     T Xpos;
     T Ypos;
     int ObjectID = 0;
     int g = 10000;
     int Heuristic = 0;
+    int DijkstraDistance;
     int hashKey;
     Cell<T>* previous;
 

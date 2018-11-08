@@ -5,6 +5,7 @@
 #include "AstarLevel.h"
 #include "../Algorithms/AStar.h"
 #include "../ADTStructures/LinkedList.h"
+#include "../Algorithms/Dijkstra.h"
 
 std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
                                                    int yTarget) {

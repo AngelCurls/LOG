@@ -58,7 +58,7 @@ void ViewManager::mainLoop() {
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(levelNumber);
+    Level* gameLevel = LevelBuilder::getLevel(1);
     ALLEGRO_EVENT event;
 
     while (showing){
