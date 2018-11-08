@@ -16,6 +16,7 @@ public:
     void setPath(Level *gameLevel, int xGraph, int yGraph);
     void draw();
 
+
     Player* getPlayers();
 
     Graph *getMap() const;

@@ -2,13 +2,17 @@
 #include "GameObjects/Population.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 ViewManager::ViewManager() {
     al_init();
     al_install_mouse();
-    al_init_image_addon();
     al_install_keyboard();
-    bool t = al_init_primitives_addon();
+    al_install_audio();
+    al_init_image_addon();
+    al_init_acodec_addon();
+
 
     int fps = 60;
 
@@ -26,22 +30,72 @@ ViewManager::ViewManager() {
 
     showing = true;
 
-    //showDisplay();
-    //std::cout << "Hola ";
+
 
 
 }
 
 void ViewManager::showDisplay() {
-    //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
-    //displayThread.join();
 
-    mainLoop();
+    al_set_new_window_title("Menu");
+    this->menuDisplay = al_create_display(435,435);
+    al_register_event_source(this->eventQueue,al_get_display_event_source(this->menuDisplay));
 
+
+    image = al_load_bitmap("../GUI/LOG.png");
+
+    al_reserve_samples(1);
+    music = al_load_sample("../GUI/Ameno.wav");
+    al_play_sample(music,1.0,0.0,1.0,ALLEGRO_PLAYMODE_LOOP,0);
+
+
+
+    al_start_timer(this->timer);
+    al_start_timer(this->timerDraw);
+    ALLEGRO_KEYBOARD_STATE keyMenu;
+    ALLEGRO_EVENT event;
+
+    while (showing) {
+
+        al_wait_for_event(this->eventQueue, &event);
+
+        al_draw_bitmap(image,0,0, NULL);
+        al_flip_display();
+        al_clear_to_color(al_map_rgb(0,0,0));
+
+        if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            showing = false;
+            destroyWindow();
+        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            if (event.timer.source == this->timer) {
+                al_get_keyboard_state(&keyMenu);
+                if(al_key_down(&keyMenu,ALLEGRO_KEY_ENTER)) {
+
+                   mainLoop();
+
+
+                }
+            }
+
+
+        }
+
+
+    }
+   /* al_destroy_display(menuDisplay);
+    al_destroy_timer(timer);
+    al_destroy_sample_instance(songInstance);
+    al_destroy_sample(music);
+    al_destroy_event_queue(eventQueue);
+    al_destroy_bitmap(image); */
 }
 
 void ViewManager::mainLoop() {
+    al_destroy_display(this->menuDisplay);
+    al_set_new_window_title("LOG");
     this->ptrDisplay = al_create_display(this->Height,this->Width);
+
+
     al_register_event_source(this->eventQueue,al_get_display_event_source(this->ptrDisplay));
 
     al_start_timer(this->timer);
@@ -66,7 +120,9 @@ void ViewManager::mainLoop() {
     ALLEGRO_EVENT event;
     while (showing){
 
+
         al_wait_for_event(this->eventQueue,&event);
+
         //std::cout << event.type;
 
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -74,6 +130,7 @@ void ViewManager::mainLoop() {
             destroyWindow();
         } else if (event.type == ALLEGRO_EVENT_TIMER){
             if (event.timer.source == this->timer){
+                //drawPlayer();
                 al_get_mouse_state(&mouseState);
                 al_get_keyboard_state(&keyState);
 
@@ -104,6 +161,7 @@ void ViewManager::mainLoop() {
 
 
             } else if (event.timer.source == this->timerDraw){
+
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawMap(graph);
@@ -117,6 +175,8 @@ void ViewManager::mainLoop() {
     delete(graph);
 
 }
+
+
 
 
 ViewManager* ViewManager::getInstance() {
