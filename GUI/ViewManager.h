@@ -46,16 +46,19 @@ private:
     ViewManager* viewManagerInstance = nullptr;
     bool showing = false;
     ALLEGRO_DISPLAY* ptrDisplay = nullptr;
+    ALLEGRO_DISPLAY* menuDisplay = nullptr;
     void mainLoop();
     ALLEGRO_TIMER* timer;
     ALLEGRO_TIMER* timerDraw;
     ALLEGRO_EVENT_QUEUE* eventQueue;
     ALLEGRO_BITMAP* image;
+    ALLEGRO_KEYBOARD_STATE keyState;
 
     ViewManager();
 
 
     void drawPath(std::list<Cell<int>*> *pList);
+
 
 };
 

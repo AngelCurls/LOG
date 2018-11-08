@@ -7,6 +7,7 @@ ViewManager::ViewManager() {
     al_init();
     al_install_mouse();
     al_init_image_addon();
+    al_install_keyboard();
     bool t = al_init_primitives_addon();
 
     int fps = 60;
@@ -17,6 +18,7 @@ ViewManager::ViewManager() {
 
 
     al_register_event_source(this->eventQueue,al_get_mouse_event_source());
+    al_register_event_source(this->eventQueue,al_get_keyboard_event_source());
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timer));
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timerDraw));
 
@@ -33,6 +35,7 @@ ViewManager::ViewManager() {
 void ViewManager::showDisplay() {
     //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
     //displayThread.join();
+
     mainLoop();
 
 }
@@ -54,13 +57,13 @@ void ViewManager::mainLoop() {
 
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
+    ALLEGRO_KEYBOARD_STATE keyState;
     int levelNumber = 0;
     int yGraph = 0;
     int xGraph = 0;
 
     Level* gameLevel = LevelBuilder::getLevel(1);
     ALLEGRO_EVENT event;
-
     while (showing){
 
         al_wait_for_event(this->eventQueue,&event);
@@ -72,6 +75,7 @@ void ViewManager::mainLoop() {
         } else if (event.type == ALLEGRO_EVENT_TIMER){
             if (event.timer.source == this->timer){
                 al_get_mouse_state(&mouseState);
+                al_get_keyboard_state(&keyState);
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
@@ -81,6 +85,23 @@ void ViewManager::mainLoop() {
                     }
                     playerPopulation->setPath(gameLevel, xGraph, yGraph); // Le da un path a todos los jugadores según el lugar donde se dio click
                 }
+                if(al_key_down(&keyState,ALLEGRO_KEY_Q)) {
+                    std::cout << "Q \n";
+                    //metodo para ataque desbloqueado
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
+                    std::cout << "W \n";
+                    //metodo para ataque desbloqueado
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_E)) {
+                    std::cout << "E \n";
+                    //metodo para ataque desbloqueado
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
+                    std::cout << "A \n";
+                    //metodo para ataque desbloqueado
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
+                    std::cout << "S \n";
+                    //metodo para ataque desbloqueado
+                }
+
 
             } else if (event.timer.source == this->timerDraw){
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
@@ -96,6 +117,7 @@ void ViewManager::mainLoop() {
     delete(graph);
 
 }
+
 
 ViewManager* ViewManager::getInstance() {
     ViewManager* ptrInstance = new ViewManager();
@@ -153,7 +175,7 @@ void ViewManager::drawMap(Graph *graph) {
                 obstacleColor = al_map_rgb(0, 0, 0);
             }
             else if (cellCurrent->getObjectID() == 2) {
-               obstacleColor = al_map_rgb(0, 255, 0);
+                obstacleColor = al_map_rgb(0, 255, 0);
             }
             else if (cellCurrent->getObjectID() == 3) {
                 obstacleColor = al_map_rgb(255, 0, 0);
