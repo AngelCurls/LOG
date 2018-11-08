@@ -35,6 +35,7 @@ ViewManager::ViewManager() {
 void ViewManager::showDisplay() {
     //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
     //displayThread.join();
+
     mainLoop();
 
 }
@@ -174,7 +175,7 @@ void ViewManager::drawMap(Graph *graph) {
                 obstacleColor = al_map_rgb(0, 0, 0);
             }
             else if (cellCurrent->getObjectID() == 2) {
-               obstacleColor = al_map_rgb(0, 255, 0);
+                obstacleColor = al_map_rgb(0, 255, 0);
             }
             else if (cellCurrent->getObjectID() == 3) {
                 obstacleColor = al_map_rgb(255, 0, 0);
