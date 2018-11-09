@@ -38,7 +38,7 @@ ViewManager::ViewManager() {
 void ViewManager::showDisplay() {
 
     al_set_new_window_title("Menu");
-    this->menuDisplay = al_create_display(435,435);
+    this->menuDisplay = al_create_display(595,340);
     al_register_event_source(this->eventQueue,al_get_display_event_source(this->menuDisplay));
 
 
@@ -69,11 +69,17 @@ void ViewManager::showDisplay() {
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             if (event.timer.source == this->timer) {
                 al_get_keyboard_state(&keyMenu);
-                if(al_key_down(&keyMenu,ALLEGRO_KEY_ENTER)) {
-
+                if(al_key_down(&keyMenu,ALLEGRO_KEY_E)) {
+                  //empieza el nivel en dificultad facil
                    mainLoop();
 
+                }else if(al_key_down(&keyMenu,ALLEGRO_KEY_N)) {
+                    //empieza el nivel en dificultad normal
+                    mainLoop();
 
+                }if(al_key_down(&keyMenu,ALLEGRO_KEY_H)) {
+                    //empieza el nivel en dificultad dificil
+                    mainLoop();
                 }
             }
 
