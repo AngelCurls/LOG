@@ -154,7 +154,7 @@ void ViewManager::mainLoop() {
                 }else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
                     std::cout << "W \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_E)) {
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
                     std::cout << "E \n";
                     //metodo para ataque desbloqueado
                 }else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
