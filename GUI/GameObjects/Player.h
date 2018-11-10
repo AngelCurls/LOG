@@ -45,7 +45,7 @@ private:
     int i = 0;
     int j = 49;
     int moving = false;
-    int speed = 80;
+    int speed = 100;
     //ALLEGRO_BITMAP  *p1;
 };
 

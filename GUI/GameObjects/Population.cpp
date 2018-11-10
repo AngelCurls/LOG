@@ -6,14 +6,14 @@
 #include "../../Algorithms/AStar.h"
 
 Population::Population() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < sizeof(players)/sizeof(*players); i++) {
         this->players[i] = new Player(49 - 3 * i); // Crea 5 jugadores y uno va encima del otro
     }
 
 }
 
 void Population::draw() {
-    for (int i = 0; i < 5 ; i++) {
+    for (int i = 0; i < sizeof(players)/sizeof(*players); i++) {
         players[i]->draw(); // Dibuja todos los jugadores
         //players[i]->setPath(nullptr);
     }
@@ -21,7 +21,7 @@ void Population::draw() {
 }
 
 void Population::setPath(Level *gameLevel, int xGraph, int yGraph) {
-    for (int i = 0; i < 5 ; i++) {
+    for (int i = 0; i < sizeof(players)/sizeof(*players); i++) {
         players[i]->path = gameLevel->getPath(map, xGraph, yGraph, players[i]->getI(), players[i]->getJ()); // Encuentra un path para un mapa específico para cada uno de los jugadores
         /*
         std::list<Cell<int> *> *path = AStar::findPath(this->map, players[k]->getI(), this->getJ(), i + k, j);
@@ -32,7 +32,7 @@ void Population::setPath(Level *gameLevel, int xGraph, int yGraph) {
 }
 
 void Population::updatePlayers() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < sizeof(players)/sizeof(*players); i++) {
         if(players[i]->path != nullptr) {
             if (players[i]->getPath()->back() != nullptr) {
                 players[i]->setI(
@@ -54,7 +54,7 @@ void Population::setMap(Graph *map) {
 }
 
 void Population::setPlayersSpeed(int speed) {
-    for (int k = 0; k < 5; k++) {
+    for (int k = 0; k < sizeof(players)/sizeof(*players); k++) {
 
         this->players[k]->setSpeed(speed);
     }

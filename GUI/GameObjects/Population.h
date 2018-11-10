@@ -30,7 +30,7 @@ public:
 private:
 
     Graph* map;
-    Player* players[5];
+    Player* players[10];
 
 };
 

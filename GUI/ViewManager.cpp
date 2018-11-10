@@ -13,6 +13,8 @@ ViewManager::ViewManager() {
     al_init_image_addon();
     al_init_acodec_addon();
 
+    bool t =al_init_primitives_addon();
+
 
     int fps = 60;
 
@@ -88,12 +90,12 @@ void ViewManager::showDisplay() {
 
 
     }
-   /* al_destroy_display(menuDisplay);
+    al_destroy_display(menuDisplay);
     al_destroy_timer(timer);
     al_destroy_sample_instance(songInstance);
     al_destroy_sample(music);
     al_destroy_event_queue(eventQueue);
-    al_destroy_bitmap(image); */
+    al_destroy_bitmap(image);
 }
 
 void ViewManager::mainLoop() {
@@ -125,7 +127,6 @@ void ViewManager::mainLoop() {
     Level* gameLevel = LevelBuilder::getLevel(1);
     ALLEGRO_EVENT event;
     while (showing){
-
 
         al_wait_for_event(this->eventQueue,&event);
 
