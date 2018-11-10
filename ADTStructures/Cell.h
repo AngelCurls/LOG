@@ -43,6 +43,10 @@ public:
 
     void setDijkstraDistance(int DijkstraDistance);
 
+    bool isVisited() const;
+
+    void setVisited(bool pVisit);
+
 private:
     T Xpos;
     T Ypos;
@@ -50,6 +54,8 @@ private:
     int g = 10000;
     int Heuristic = 0;
     int DijkstraDistance;
+    bool visited = false;
+
     int hashKey;
     Cell<T>* previous;
 
