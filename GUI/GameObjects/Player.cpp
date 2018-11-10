@@ -7,7 +7,6 @@
 #include "Player.h"
 
 Player::Player() {}
-
 Player::Player(int y) {
     j = y;
 }

@@ -45,7 +45,11 @@ private:
     int i = 0;
     int j = 49;
     int moving = false;
+//<<<<<<< Updated upstream
     int speed = 100;
+//=======
+    int speedClock = speed;
+//>>>>>>> Stashed changes
     //ALLEGRO_BITMAP  *p1;
 };
 

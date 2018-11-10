@@ -10,10 +10,12 @@ ViewManager::ViewManager() {
     al_install_mouse();
     al_install_keyboard();
     al_install_audio();
+    al_init_primitives_addon();
     al_init_image_addon();
     al_init_acodec_addon();
 
     bool t =al_init_primitives_addon();
+
 
 
     int fps = 60;
@@ -48,7 +50,7 @@ void ViewManager::showDisplay() {
 
     al_reserve_samples(1);
     music = al_load_sample("../GUI/Ameno.wav");
-    al_play_sample(music,1.0,0.0,1.0,ALLEGRO_PLAYMODE_LOOP,0);
+    //al_play_sample(music,1.0,0.0,1.0,ALLEGRO_PLAYMODE_LOOP,0);
 
 
 
@@ -124,7 +126,7 @@ void ViewManager::mainLoop() {
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(1);
+    Level* gameLevel = LevelBuilder::getLevel(3);
     ALLEGRO_EVENT event;
     while (showing){
 
@@ -143,7 +145,8 @@ void ViewManager::mainLoop() {
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    if (mouseState.x >= 0 && mouseState.y >= 0) {
+                    if (mouseState.x > 0 && mouseState.x < this->Width &&
+                    mouseState.y > 0 && mouseState.y < this->Height) {
                         xGraph = mouseState.x / this->relationRatio;
                         yGraph = mouseState.y / this->relationRatio;
                     }
