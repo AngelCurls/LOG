@@ -72,3 +72,15 @@ void Cell<T>::setHashKey(int hashKey) {
     Cell::hashKey = hashKey;
 }
 
+template<typename T>
+bool Cell<T>::isVisited() const {
+    return visited;
+}
+
+template<typename T>
+void Cell<T>::setVisited(bool pVisit) {
+    Cell::visited = pVisit;
+}
+
+
+

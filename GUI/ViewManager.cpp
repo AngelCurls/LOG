@@ -54,7 +54,7 @@ void ViewManager::mainLoop() {
 
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
-    int levelNumber = 0;
+    int levelNumber = 2; //AStar = 0; Prim = 1; Kruskal = 2
     int yGraph = 0;
     int xGraph = 0;
 

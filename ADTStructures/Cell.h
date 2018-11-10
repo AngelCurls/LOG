@@ -37,12 +37,18 @@ public:
 
     void setHashKey(int hashKey);
 
+    bool isVisited() const;
+
+    void setVisited(bool pVisit);
+
 private:
     T Xpos;
     T Ypos;
     int ObjectID = 0;
     int g = 10000;
     int Heuristic = 0;
+    bool visited = false;
+
     int hashKey;
     Cell<T>* previous;
 

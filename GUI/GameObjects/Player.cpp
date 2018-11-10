@@ -11,7 +11,7 @@ Player::Player(int y) {
 }
 
 void Player::draw() {
-    if (path != nullptr) {
+    if (path != nullptr && path->size() > 0) {
             for (auto currentCell : *path) {
                     float x = currentCell->getXpos() * 10;
                     float y = currentCell->getYpos() * 10;

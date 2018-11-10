@@ -1,27 +1,27 @@
-#include "Prim.h"
+#include "Kruskal.h"
 #include <queue>
 #include <stack>
 #include <iostream>
 
-Graph* Prim::MST = nullptr;
-int Prim::xTarget = -1;
-int Prim::yTarget = -1;
+Graph* Kruskal::MST = nullptr;
+int Kruskal::xTarget = -1;
+int Kruskal::yTarget = -1;
 
 
 
-std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, int iPlayer, int jPlayer) {
+std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget, int iPlayer, int jPlayer) {
     //si el punto del click cambia, se recalcula el arbol
     if (iTarget != xTarget || jTarget != yTarget) {
         xTarget = iTarget;
         yTarget = jTarget;
-        findMST(graph, iPlayer, jPlayer, iTarget, jTarget);
+        findMST(graph, iTarget, jTarget, iPlayer, jPlayer);
     }
 
     bool targetFound = false,
-         progress;
+            progress;
     std::set<Cell<int> *> adjacencyList;
     std::vector<Cell<int>*> cellStack,
-                            pathStack;
+            pathStack;
     cellStack.push_back(MST->getNode(iPlayer, jPlayer));
     Cell<int> *currentCell, *previousCell = nullptr;
 
@@ -37,12 +37,12 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
         if (currentCell->getXpos() == iTarget && currentCell->getYpos() == jTarget)
             targetFound = progress = true;
 
-        //Si la celda actual esta junto a la objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
+            //Si la celda actual esta junto a la objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
         else if (graph->getNode(iTarget, jTarget)->getObjectID() > 0 &&
-                (abs(currentCell->getXpos() - iTarget) <= 1 && abs(currentCell->getYpos() - jTarget) <= 1))
+                 (abs(currentCell->getXpos() - iTarget) <= 1 && abs(currentCell->getYpos() - jTarget) <= 1))
             targetFound = progress = true;
 
-        //Si ninguno se cumple, se analizaran las celdas cercanas unidas con los edges del MST
+            //Si ninguno se cumple, se analizaran las celdas cercanas unidas con los edges del MST
         else {
             adjacencyList = MST->getNodeAdjacencyList(currentCell->getXpos(), currentCell->getYpos());
 
@@ -52,7 +52,7 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
                 //Si la celda adyacente no es la anterior o no ha sido visitada ya, se agrega a la pila
                 if (!adjacentCell->isVisited() &&
                     !(previousCell != nullptr &&
-                     (adjacentCell->getXpos() == previousCell->getXpos() && adjacentCell->getYpos() == previousCell->getYpos())))
+                      (adjacentCell->getXpos() == previousCell->getXpos() && adjacentCell->getYpos() == previousCell->getYpos())))
                 {
                     cellStack.push_back(adjacentCell);
                     progress = true;
@@ -65,7 +65,7 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
             pathStack.push_back(previousCell);
             //printpath(pathStack);
         }
-        // si no, se retrocede una celda en el path actual
+            // si no, se retrocede una celda en el path actual
         else {
             currentCell->setVisited(true);
             previousCell = pathStack.back(), pathStack.pop_back();
@@ -74,13 +74,13 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
 
     //se traduce la pila del path a una lista para retornarla
     auto path = new std::list<Cell<int> *>();
-    for (int i = pathStack.size(); i > 0; i--) {
+    for (int i = pathStack.size(); i > 0; i--)
         path->push_back(pathStack.back()), pathStack.pop_back();
-    }
+
     return path;
 }
 
-void Prim::printpath(std::vector<Cell<int>*> path)
+void Kruskal::printpath(std::vector<Cell<int>*> path)
 {
     std::cout << "Path order :: =";
     for (Cell<int>* cell : path)
@@ -90,7 +90,7 @@ void Prim::printpath(std::vector<Cell<int>*> path)
     std::cout << std::endl;
 }
 
-void Prim::printpath(std::list<Cell<int>*> path)
+void Kruskal::printpath(std::list<Cell<int>*> path)
 {
     std::cout << "Path order :: =";
     for (Cell<int>* cell : path)
@@ -100,7 +100,7 @@ void Prim::printpath(std::list<Cell<int>*> path)
     std::cout << std::endl;
 }
 
-void Prim::findMST(Graph* graph, int iStart, int jStart, int iPlayer, int jPlayer) {
+void Kruskal::findMST(Graph* graph, int iStart, int jStart, int iPlayer, int jPlayer) {
     //se crea un nuevo grafo, que sera el arbol de expansion minima
     MST = new Graph(graph->getHeight(), graph->getWidth());
 
