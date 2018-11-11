@@ -76,6 +76,10 @@ template<typename T>
 bool Cell<T>::operator<(Cell<T> *cellToCompare) {
     return this->DijkstraDistance > cellToCompare->DijkstraDistance;
 }
+template<typename T>
+bool Cell<T>::isVisited() const {
+    return visited;
+}
 
 template<typename T>
 int Cell<T>::getDijkstraDistance() const {
@@ -86,3 +90,11 @@ template<typename T>
 void Cell<T>::setDijkstraDistance(int DijkstraDistance) {
     Cell::DijkstraDistance = DijkstraDistance;
 }
+
+template<typename T>
+void Cell<T>::setVisited(bool pVisit) {
+    Cell::visited = pVisit;
+}
+
+
+

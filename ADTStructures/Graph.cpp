@@ -39,31 +39,17 @@ void Graph::generateGrid() {
     for (int i = 0; i <this->height ; ++i) {
         for (int j = 0; j < this->width; ++j) {
 
-            if (i - 1 > 0){
-
+            if (i - 1 >= 0)             //upper edge
                 addEdge(this->keyTable[i][j], this->keyTable[i - 1][j]);
-                addEdge(this->keyTable[i - 1][j], this->keyTable[i][j]);
 
-            }
-            if (i + 1 < this->height){
-
+            if (i + 1 < this->height)   //bottom edge
                 addEdge(this->keyTable[i][j], this->keyTable[i + 1][j]);
-                addEdge(this->keyTable[i + 1][j], this->keyTable[i][j]);
 
-            }
-            if (j - 1 > 0){
-
+            if (j - 1 >= 0)             //left edge
                 addEdge(this->keyTable[i][j], this->keyTable[i][j - 1]);
-                addEdge(this->keyTable[i][j - 1], this->keyTable[i][j]);
 
-            }
-            if (j + 1 < this->width){
-
+            if (j + 1 < this->width)    //right edge
                 addEdge(this->keyTable[i][j], this->keyTable[i][j + 1]);
-                addEdge(this->keyTable[i][j + 1], this->keyTable[i][j]);
-
-            }
-
         }
     }
 }
@@ -83,12 +69,16 @@ void Graph::restoreGraph() {
 
 }
 
+void Graph::restoreVisited() {
+    Cell<int>* currentCell;
+    for (int i = 0; i < this->height ; i++)
+        for (int j = 0; j < this->width; j++)
+            this->keyTable[i][j]->setVisited(false);
+}
+
 void Graph::addEdge(Cell<int> *CellFrom, Cell<int> *CellTo) {
         int keyFrom = CellFrom->getHashKey();
         this->adjacencyList[keyFrom].insert(CellTo);
-
-
-
 }
 
 int* Graph::loadMap(int lvl) {

@@ -7,8 +7,6 @@
 
 
 #include "Level.h"
-#include "../ADTStructures/Graph.h"
-#include <list>
 
 class AstarLevel: public Level {
     std::list<Cell<int>*>* getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget, int yTarget) override;

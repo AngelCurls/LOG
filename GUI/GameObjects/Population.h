@@ -16,6 +16,7 @@ public:
     void setPath(Level *gameLevel, int xGraph, int yGraph);
     void draw();
 
+
     Player* getPlayers();
 
     Graph *getMap() const;
@@ -29,7 +30,7 @@ public:
 private:
 
     Graph* map;
-    Player* players[5];
+    Player* players[10];
 
 };
 

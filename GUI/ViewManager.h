@@ -10,9 +10,11 @@
 #include <iostream>
 #include <list>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_audio.h>
 #include "../Levels/Level.h"
 #include "LevelBuilder.h"
 #include "../ADTStructures/LinkedList.cpp"
+#include <allegro5/allegro_acodec.h>
 
 
 
@@ -42,6 +44,8 @@ public:
 
     void drawMap(Graph *graph);
 
+    void drawPlayer();
+
 private:
     ViewManager* viewManagerInstance = nullptr;
     bool showing = false;
@@ -51,8 +55,10 @@ private:
     ALLEGRO_TIMER* timer;
     ALLEGRO_TIMER* timerDraw;
     ALLEGRO_EVENT_QUEUE* eventQueue;
+    ALLEGRO_SAMPLE * music;
+    ALLEGRO_SAMPLE_INSTANCE *songInstance;
     ALLEGRO_BITMAP* image;
-    ALLEGRO_KEYBOARD_STATE keyState;
+
 
     ViewManager();
 

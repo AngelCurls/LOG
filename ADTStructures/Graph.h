@@ -43,6 +43,12 @@ public:
      */
     void restoreGraph();
 
+
+    /** Restaura el atributo "Visited" de todas las celdas
+     *  a 'false'
+     */
+    void restoreVisited();
+
     /**
      * Agrega en la lista de CellFrom, el nodo CellTo
      * @param CellFrom Nodo en que se va a agregar el nodo CellTo

@@ -2,13 +2,21 @@
 #include "GameObjects/Population.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 ViewManager::ViewManager() {
     al_init();
     al_install_mouse();
-    al_init_image_addon();
     al_install_keyboard();
-    bool t = al_init_primitives_addon();
+    al_install_audio();
+    al_init_primitives_addon();
+    al_init_image_addon();
+    al_init_acodec_addon();
+
+    bool t =al_init_primitives_addon();
+
+
 
     int fps = 60;
 
@@ -26,22 +34,78 @@ ViewManager::ViewManager() {
 
     showing = true;
 
-    //showDisplay();
-    //std::cout << "Hola ";
+
 
 
 }
 
 void ViewManager::showDisplay() {
-    //std::thread displayThread(&ViewManager::mainLoop,this->viewManagerInstance);
-    //displayThread.join();
 
-    mainLoop();
+    al_set_new_window_title("Menu");
+    this->menuDisplay = al_create_display(595,340);
+    al_register_event_source(this->eventQueue,al_get_display_event_source(this->menuDisplay));
 
+
+    image = al_load_bitmap("../GUI/LOG.png");
+
+    al_reserve_samples(1);
+    music = al_load_sample("../GUI/Ameno.wav");
+    //al_play_sample(music,1.0,0.0,1.0,ALLEGRO_PLAYMODE_LOOP,0);
+
+
+
+    al_start_timer(this->timer);
+    al_start_timer(this->timerDraw);
+    ALLEGRO_KEYBOARD_STATE keyMenu;
+    ALLEGRO_EVENT event;
+
+    while (showing) {
+
+        al_wait_for_event(this->eventQueue, &event);
+
+        al_draw_bitmap(image,0,0, NULL);
+        al_flip_display();
+        al_clear_to_color(al_map_rgb(0,0,0));
+
+        if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            showing = false;
+            destroyWindow();
+        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            if (event.timer.source == this->timer) {
+                al_get_keyboard_state(&keyMenu);
+                if(al_key_down(&keyMenu,ALLEGRO_KEY_E)) {
+                  //empieza el nivel en dificultad facil
+                   mainLoop();
+
+                }else if(al_key_down(&keyMenu,ALLEGRO_KEY_N)) {
+                    //empieza el nivel en dificultad normal
+                    mainLoop();
+
+                }if(al_key_down(&keyMenu,ALLEGRO_KEY_H)) {
+                    //empieza el nivel en dificultad dificil
+                    mainLoop();
+                }
+            }
+
+
+        }
+
+
+    }
+    al_destroy_display(menuDisplay);
+    al_destroy_timer(timer);
+    al_destroy_sample_instance(songInstance);
+    al_destroy_sample(music);
+    al_destroy_event_queue(eventQueue);
+    al_destroy_bitmap(image);
 }
 
 void ViewManager::mainLoop() {
+    al_destroy_display(this->menuDisplay);
+    al_set_new_window_title("LOG");
     this->ptrDisplay = al_create_display(this->Height,this->Width);
+
+
     al_register_event_source(this->eventQueue,al_get_display_event_source(this->ptrDisplay));
 
     al_start_timer(this->timer);
@@ -62,11 +126,12 @@ void ViewManager::mainLoop() {
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(1);
+    Level* gameLevel = LevelBuilder::getLevel(3);
     ALLEGRO_EVENT event;
     while (showing){
 
         al_wait_for_event(this->eventQueue,&event);
+
         //std::cout << event.type;
 
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -74,12 +139,14 @@ void ViewManager::mainLoop() {
             destroyWindow();
         } else if (event.type == ALLEGRO_EVENT_TIMER){
             if (event.timer.source == this->timer){
+                //drawPlayer();
                 al_get_mouse_state(&mouseState);
                 al_get_keyboard_state(&keyState);
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    if (mouseState.x >= 0 && mouseState.y >= 0) {
+                    if (mouseState.x > 0 && mouseState.x < this->Width &&
+                    mouseState.y > 0 && mouseState.y < this->Height) {
                         xGraph = mouseState.x / this->relationRatio;
                         yGraph = mouseState.y / this->relationRatio;
                     }
@@ -91,7 +158,7 @@ void ViewManager::mainLoop() {
                 }else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
                     std::cout << "W \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_E)) {
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
                     std::cout << "E \n";
                     //metodo para ataque desbloqueado
                 }else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
@@ -104,6 +171,7 @@ void ViewManager::mainLoop() {
 
 
             } else if (event.timer.source == this->timerDraw){
+
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawMap(graph);
@@ -117,6 +185,8 @@ void ViewManager::mainLoop() {
     delete(graph);
 
 }
+
+
 
 
 ViewManager* ViewManager::getInstance() {
