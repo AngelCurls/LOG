@@ -7,6 +7,7 @@
 
 #include "../../ADTStructures/Cell.h"
 #include <list>
+#include <allegro5/allegro_image.h>
 
 class Player {
 public:
@@ -14,6 +15,8 @@ public:
     Player(int y);
 
     void draw();
+    void attack();
+
     void draw(std::list<Cell<int>*>* path);
 
     std::list<Cell<int>*>* path = nullptr;
@@ -42,7 +45,12 @@ private:
     int i = 0;
     int j = 49;
     int moving = false;
+//<<<<<<< Updated upstream
     int speed = 100;
+//=======
+    int speedClock = speed;
+//>>>>>>> Stashed changes
+    //ALLEGRO_BITMAP  *p1;
 };
 
 

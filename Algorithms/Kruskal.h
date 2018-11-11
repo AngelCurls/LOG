@@ -1,11 +1,11 @@
-#ifndef LOG_PRIM_H
-#define LOG_PRIM_H
+#ifndef LOG_KRUSKAL_H
+#define LOG_KRUSKAL_H
 
 
 #include "../ADTStructures/Graph.h"
 #include <list>
 
-class Prim {
+class Kruskal {
 public:
     static std::list<Cell<int>*>* findPath(Graph* graph, int iTarget, int jTarget, int iPlayer, int jPlayer);
 
@@ -22,4 +22,4 @@ private:
 };
 
 
-#endif //LOG_PRIM_H
+#endif //LOG_KRUSKAL_H
