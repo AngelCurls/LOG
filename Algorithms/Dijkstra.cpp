@@ -8,23 +8,31 @@ int Dijkstra::INF = 1000000;
 
 std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart, int iTarget, int jTarget) {
 
+    //Cola de prioridad que coloque el nodo con la menor distancia en eñ inicio de la cola
     std::priority_queue<Cell<int>*, std::vector<Cell<int>*>,CompareNode> Nodos;
-    std::set<Cell<int>*> nodosVisitados;
+
+
+
+    //lista con los nodos que hacen el camino
     std::list<Cell<int>*>* path = new std::list<Cell<int>*>();;
 
     //Se colocan todas las distancias en infinito, por que aun no se visitan
     setDistanceInfinite(graph);
-    //Se coloca la distancia del inicio en cero, por que ya estoy en ella
+
+    //Celda de inicio
     Cell<int>* start = graph->getKeyTable()[iStart][jStart];
 
+    //Celda final
     Cell<int>* target = graph->getKeyTable()[iTarget][jTarget];
+
+    //Se coloca la distancia del inicio en cero, por que el costo de moverme al inicio es cero ya que estoy ahi
     start->setDijkstraDistance(0);
 
+    //Se coloca el inicio en la cola
     Nodos.push(start);
     while (!Nodos.empty()){
         Cell<int>* minCell = Nodos.top();
         Nodos.pop();
-        nodosVisitados.insert(minCell);
 
         if (minCell == target){
             Cell<int>* current = minCell;
@@ -40,12 +48,17 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
 
             break;
         }
+
+        //Se adquiere una lista de los vecinos del nodo
         auto neightbors = graph->getNodeAdjacencyList(minCell->getXpos(),minCell->getYpos());
 
         for ( Cell<int>* neightbor : neightbors) {
+            //Distancia tentativa del nodo
             int tempDistance = minCell->getDijkstraDistance() + 1;
 
+            //Si el la distancia que posee el nodo es mayor a la tentativa se le asigna y se coloca el nodo en la cola
             if (neightbor->getDijkstraDistance() > tempDistance && neightbor->getObjectID() == 0){
+
                 neightbor->setDijkstraDistance(tempDistance);
                 neightbor->setPrevious(minCell);
                 Nodos.push(neightbor);

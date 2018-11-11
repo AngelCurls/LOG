@@ -10,5 +10,5 @@
 
 std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
                                                    int yTarget) {
-    return LineSight::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
+    return AStar::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
 }
