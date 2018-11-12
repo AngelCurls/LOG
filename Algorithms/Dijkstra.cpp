@@ -37,7 +37,7 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
         if (minCell == target){
             Cell<int>* current = minCell;
 
-            while (current->getPrevious() != nullptr){
+            while (current != nullptr){
                 if (current == start){
                     path->push_front(start);
                     break;
@@ -57,7 +57,7 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
             int tempDistance = minCell->getDijkstraDistance() + 1;
 
             //Si el la distancia que posee el nodo es mayor a la tentativa se le asigna y se coloca el nodo en la cola
-            if (neightbor->getDijkstraDistance() > tempDistance && neightbor->getObjectID() == 0){
+            if (neightbor->getDijkstraDistance() > tempDistance && (neightbor->getObjectID() == 0 || neightbor->getObjectID() == 10) ){
 
                 neightbor->setDijkstraDistance(tempDistance);
                 neightbor->setPrevious(minCell);

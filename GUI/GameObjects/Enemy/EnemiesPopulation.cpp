@@ -33,6 +33,7 @@ EnemiesPopulation::EnemiesPopulation(int enemyQuantity, Graph *pGraph) {
             enemyActual->setJ(j);
         }
         pGraph->getKeyTable()[k][j]->setObjectID(4);
+        this->map = pGraph;
 
 
 
@@ -76,6 +77,11 @@ void EnemiesPopulation::getNextGeneration() {
 
         newPopulation[j]->setI(this->population[j]->getI());
         newPopulation[j]->setJ(this->population[j]->getJ());
+
+        int x = newPopulation[j]->getI();
+        int y = newPopulation[j]->getJ();
+
+        this->map->getKeyTable()[x][y]->setObjectID(4);
         delete population[j];
 
     }
@@ -139,4 +145,8 @@ float EnemiesPopulation::getRelationRatio() const {
 
 void EnemiesPopulation::setRelationRatio(float relationRatio) {
     EnemiesPopulation::relationRatio = relationRatio;
+}
+
+void EnemiesPopulation::setMap(Graph *map) {
+    EnemiesPopulation::map = map;
 }

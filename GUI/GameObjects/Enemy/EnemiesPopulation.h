@@ -13,6 +13,7 @@
 class EnemiesPopulation {
 private:
 
+    Graph* map = nullptr;
     EnemyUnit** population;
     int generation = 0;
     int enemyQuantity;
@@ -43,6 +44,8 @@ public:
     float getRelationRatio() const;
 
     void setRelationRatio(float relationRatio);
+
+    void setMap(Graph *map);
 };
 
 

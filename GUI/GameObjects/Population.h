@@ -7,7 +7,8 @@
 
 
 #include "Player.h"
-#include "../ViewManager.h"
+#include "Gem.h"
+#include "../../Levels/Level.h"
 #include <list>
 
 class Population: Player {
@@ -28,6 +29,8 @@ public:
     void setPlayersSpeed(int speed);
 
     void setDrawPopulationRatio(int populationRatio);
+
+    bool collideWithGem(Gem *pGem);
 
 private:
 

@@ -14,7 +14,12 @@
 #include "../Levels/Level.h"
 #include "LevelBuilder.h"
 #include "../ADTStructures/LinkedList.cpp"
+#include "GameObjects/Population.h"
+#include "GameObjects/Enemy/EnemiesPopulation.h"
 #include <allegro5/allegro_acodec.h>
+#include "GameObjects/Population.h"
+#include "GameObjects/Enemy/EnemiesPopulation.h"
+#include "GameObjects/Gem.h"
 
 
 
@@ -73,10 +78,23 @@ private:
 
     ViewManager();
 
+    Gem* gem = nullptr;
+
+    int levelNumber = 0;
+
+    Level* gameLevel = nullptr;
+
+    Graph* map = nullptr;
+
+    Population* playerPopulation = nullptr;
+
+    EnemiesPopulation* enemiesPopulation = nullptr;
+
 
     void drawPath(std::list<Cell<int>*> *pList);
 
 
+    void nextLevel();
 };
 
 

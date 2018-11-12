@@ -1,6 +1,5 @@
 #include "ViewManager.h"
-#include "GameObjects/Population.h"
-#include "GameObjects/Enemy/EnemiesPopulation.h"
+
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
@@ -62,7 +61,7 @@ void ViewManager::showDisplay() {
 
         al_wait_for_event(this->eventQueue, &event);
 
-        al_draw_bitmap(image,0,0, NULL);
+        al_draw_bitmap(image,0,0, NULL );
         al_flip_display();
         al_clear_to_color(al_map_rgb(0,0,0));
 
@@ -112,24 +111,27 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    Graph* graph = new Graph(50,50,3);
-    graph->generateGrid();
+    this->levelNumber = 0;
+    this->map = new Graph(50,50,levelNumber + 1);
+    this->map->generateGrid();
 
-    Population* playerPopulation = new Population();
-    playerPopulation->setMap(graph);
-    playerPopulation->setDrawPopulationRatio(this->relationRatio);
+    this->playerPopulation = new Population();
+    this->playerPopulation->setMap(map);
+    this->playerPopulation->setDrawPopulationRatio(this->relationRatio);
 
-    EnemiesPopulation* enemiesPopulation = new EnemiesPopulation(25, graph);
-    enemiesPopulation->setRelationRatio(this->relationRatio);
+    this->enemiesPopulation = new EnemiesPopulation(25, map);
+    this->enemiesPopulation->setRelationRatio(this->relationRatio);
 
+    this->gem = new Gem();
+
+    this->map->getKeyTable()[0][49]->setObjectID(10);
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     ALLEGRO_KEYBOARD_STATE keyState;
-    int levelNumber = 0;
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(levelNumber);
+    this->gameLevel = LevelBuilder::getLevel(levelNumber);
     ALLEGRO_EVENT event;
     while (showing){
 
@@ -148,8 +150,8 @@ void ViewManager::mainLoop() {
 
                 if (mouseState.buttons & 1 || mouseState.buttons & 2){
 
-                    if (mouseState.x > 0 && mouseState.x < this->Width &&
-                    mouseState.y > 0 && mouseState.y < this->Height) {
+                    if (mouseState.x > 0 && mouseState.x < this->Width  &&
+                    mouseState.y > 0 && mouseState.y < this->Height ) {
                         xGraph = mouseState.x / this->relationRatio;
                         yGraph = mouseState.y / this->relationRatio;
                     }
@@ -172,25 +174,31 @@ void ViewManager::mainLoop() {
                     //metodo para ataque desbloqueado
                 }
 
+                if(playerPopulation->collideWithGem(gem)){
+
+                    this->nextLevel();
+                }
+
 
             } else if (event.timer.source == this->timerDraw){
 
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
                 al_clear_to_color(al_map_rgb(255,255,255));
-                drawMap(graph);
+                drawMap(map);
                 playerPopulation->draw(); // Dibuja todos los jugadores
                 enemiesPopulation->draw();
 
-                //Obtiene una nueva generacion cada vez que se dibuja, si molesta a la hora de probar, se pude comentar
-                enemiesPopulation->getNextGeneration();
+                gem->draw();
 
+                //Obtiene una nueva generacion cada vez que se dibuja, si molesta a la hora de probar, se pude comentar
                 al_flip_display();
             }
         }
 
     }
     delete(path);
-    delete(graph);
+    delete(map);
+    delete(gem);
 
 }
 
@@ -264,5 +272,39 @@ void ViewManager::drawMap(Graph *graph) {
         }
 
     }
+
+}
+
+void ViewManager::nextLevel() {
+
+    //Limpia el Heap
+    delete(map);
+    delete(playerPopulation);
+    delete(gameLevel);
+    delete(gem);
+    //Aumenta el nivel
+    levelNumber++;
+    //Obtiene un nuevo algoritmo de busqueda
+    gameLevel = LevelBuilder::getLevel(levelNumber);
+
+
+    //Genera una nueva gema
+    gem = new Gem();
+    //Carga el nuevo mapa
+    this->map = new Graph(50,50,levelNumber+ 1);
+    this->map->generateGrid();
+
+    this->map->getKeyTable()[0][49]->setObjectID(10);
+
+    //Setea el mapa y obtiene nuevos enemigos con el GA
+    enemiesPopulation->setMap(this->map);
+    enemiesPopulation->getNextGeneration();
+
+    //Obtiene nuevos jugadores
+    playerPopulation = new Population();
+    playerPopulation->setMap(this->map);
+    playerPopulation->setDrawPopulationRatio(this->relationRatio);
+
+
 
 }
