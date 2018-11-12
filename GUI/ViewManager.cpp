@@ -1,5 +1,6 @@
 #include "ViewManager.h"
 #include "GameObjects/Population.h"
+#include "GameObjects/Enemy/EnemiesPopulation.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
@@ -118,6 +119,9 @@ void ViewManager::mainLoop() {
     playerPopulation->setMap(graph);
     playerPopulation->setDrawPopulationRatio(this->relationRatio);
 
+    EnemiesPopulation* enemiesPopulation = new EnemiesPopulation(25, graph);
+    enemiesPopulation->setRelationRatio(this->relationRatio);
+
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     ALLEGRO_KEYBOARD_STATE keyState;
@@ -175,6 +179,11 @@ void ViewManager::mainLoop() {
                 al_clear_to_color(al_map_rgb(255,255,255));
                 drawMap(graph);
                 playerPopulation->draw(); // Dibuja todos los jugadores
+                enemiesPopulation->draw();
+
+                //Obtiene una nueva generacion cada vez que se dibuja, si molesta a la hora de probar, se pude comentar
+                enemiesPopulation->getNextGeneration();
+
                 al_flip_display();
             }
         }

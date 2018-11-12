@@ -7,6 +7,7 @@
 
 
 #include "EnemyUnit.h"
+#include "../../../ADTStructures/Graph.h"
 #include <vector>
 
 class EnemiesPopulation {
@@ -17,10 +18,12 @@ private:
     int enemyQuantity;
     int mutationRate = 1;
 
+    float relationRatio;
+
     std::vector<EnemyUnit*>* matingPool = nullptr;
 
 public:
-    EnemiesPopulation(int enemyQuantity);
+    EnemiesPopulation(int enemyQuantity, Graph *pGraph);
 
     void getNextGeneration();
 
@@ -34,6 +37,12 @@ public:
     int getGeneration() const;
 
     void generateMatingPool();
+
+    void draw();
+
+    float getRelationRatio() const;
+
+    void setRelationRatio(float relationRatio);
 };
 
 

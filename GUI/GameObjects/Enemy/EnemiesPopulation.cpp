@@ -4,9 +4,11 @@
 
 #include <time.h>
 #include <cstdlib>
+#include <allegro5/allegro_primitives.h>
 #include "EnemiesPopulation.h"
+#include "../../../ADTStructures/Graph.h"
 
-EnemiesPopulation::EnemiesPopulation(int enemyQuantity) {
+EnemiesPopulation::EnemiesPopulation(int enemyQuantity, Graph *pGraph) {
 
     this->enemyQuantity = enemyQuantity;
 
@@ -17,6 +19,23 @@ EnemiesPopulation::EnemiesPopulation(int enemyQuantity) {
     for (int i = 0; i < enemyQuantity ; i++) {
         this->population[i] = new EnemyUnit();
 
+        auto enemyActual = this->population[i];
+        int k = enemyActual->getI();
+        int j = enemyActual->getJ();
+
+        if(pGraph->getKeyTable()[k][j]->getObjectID() != 0){
+
+            while (pGraph->getKeyTable()[k][j]->getObjectID() != 0){
+                k = rand() % 50;
+                j = rand() % 50;
+            }
+            enemyActual->setI(k);
+            enemyActual->setJ(j);
+        }
+        pGraph->getKeyTable()[k][j]->setObjectID(4);
+
+
+
     }
 }
 
@@ -24,11 +43,11 @@ EnemyUnit* EnemiesPopulation::crossover(EnemyUnit* parentA, EnemyUnit* parentB) 
     EnemyUnit* enemyChild = new EnemyUnit();
 
     int ataqueHijo = parentA->getUnitDNA()->getAtaque();
-    int defenzaHijo = parentB->getUnitDNA()->getDefenza();
+    int defenzaHijo = parentB->getUnitDNA()->getDefensa();
     int vidaHijo = (parentA->getUnitDNA()->getVida() + parentB->getUnitDNA()->getVida());
 
     enemyChild->getUnitDNA()->setVida(vidaHijo);
-    enemyChild->getUnitDNA()->setDefenza(defenzaHijo);
+    enemyChild->getUnitDNA()->setDefensa(defenzaHijo);
     enemyChild->getUnitDNA()->setAtaque(ataqueHijo);
 
     enemyChild->mutate(this->mutationRate);
@@ -55,6 +74,8 @@ void EnemiesPopulation::getNextGeneration() {
 
     for (int j = 0; j < this->enemyQuantity; j++) {
 
+        newPopulation[j]->setI(this->population[j]->getI());
+        newPopulation[j]->setJ(this->population[j]->getJ());
         delete population[j];
 
     }
@@ -99,4 +120,23 @@ void EnemiesPopulation::generateMatingPool() {
     }
 
 
+}
+
+void EnemiesPopulation::draw() {
+    for (int i = 0; i < this->enemyQuantity; i++) {
+        float  x = this->population[i]->getI() * this->relationRatio;
+        float  y = this->population[i]->getJ() * this->relationRatio;
+
+        EnemyUnit* enemy = this->population[i];
+        al_draw_filled_rectangle(x,y,x + this->relationRatio, y + this->relationRatio, al_map_rgb((unsigned char)enemy->getUnitDNA()->getRedPhenotype(),(unsigned char)enemy->getUnitDNA()->getGreenPhenotype(),(unsigned char)enemy->getUnitDNA()->getBluePhenotype()));
+    }
+
+}
+
+float EnemiesPopulation::getRelationRatio() const {
+    return relationRatio;
+}
+
+void EnemiesPopulation::setRelationRatio(float relationRatio) {
+    EnemiesPopulation::relationRatio = relationRatio;
 }

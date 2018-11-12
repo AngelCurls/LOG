@@ -9,12 +9,18 @@
 DNA::DNA() {
     srand(time(nullptr));
     this->ataque = rand() % this->ataqueMaximo + 1;
-    this->defenza = rand() % this->defenzaMaxima + 1;
+    this->defensa = rand() % this->defensaMaxima + 1;
     this->vida = rand() % this->vidaMaxima + 1;
+
+    this->redPhenotype = 255 - 255/this->ataqueMaximo * this->ataque;
+    this->greenPhenotype = 255 - 255/this->vidaMaxima * this->vida;
+    this->bluePhenotype = 255 - 255/this->defensaMaxima * this->defensa;
+
+
 }
 
 int DNA::fitness() {
-    return (this->vida + this->defenza + this->ataque) * 100  / 65;
+    return (this->vida + this->defensa + this->ataque) * 100  / (this->defensaMaxima + this->vidaMaxima + this->ataqueMaximo);
 }
 
 int DNA::getVida() const {
@@ -25,12 +31,12 @@ void DNA::setVida(int vida) {
     DNA::vida = vida % this->getVidaMaxima() + 1;
 }
 
-int DNA::getDefenza() const {
-    return defenza;
+int DNA::getDefensa() const {
+    return defensa;
 }
 
-void DNA::setDefenza(int defenza) {
-    DNA::defenza = defenza % this->defenzaMaxima + 1;
+void DNA::setDefensa(int defenza) {
+    DNA::defensa = defenza % this->defensaMaxima + 1;
 }
 
 int DNA::getAtaque() const {
@@ -49,12 +55,22 @@ int DNA::getVidaMaxima() const {
     return vidaMaxima;
 }
 
-int DNA::getDefenzaMaxima() const {
-    return defenzaMaxima;
+int DNA::getDefensaMaxima() const {
+    return defensaMaxima;
 }
 
 int DNA::getAtaqueMaximo() const {
     return ataqueMaximo;
 }
 
+int DNA::getRedPhenotype() const {
+    return redPhenotype;
+}
 
+int DNA::getGreenPhenotype() const {
+    return greenPhenotype;
+}
+
+int DNA::getBluePhenotype() const {
+    return bluePhenotype;
+}

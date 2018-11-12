@@ -8,6 +8,12 @@
 
 EnemyUnit::EnemyUnit() {
     this->unitDNA = new DNA();
+
+    this->i = rand() % 50;
+    this->j = rand() % 50;
+
+
+
 }
 
 EnemyUnit::~EnemyUnit() {
@@ -35,7 +41,7 @@ void EnemyUnit::mutate(int mutationRate) {
 
         }
         if(mutationType == 1){
-            this->unitDNA->setDefenza(rand() % this->unitDNA->getDefenzaMaxima() + 1);
+            this->unitDNA->setDefensa(rand() % this->unitDNA->getDefensaMaxima() + 1);
 
         }
         if(mutationType == 2){
@@ -47,4 +53,20 @@ void EnemyUnit::mutate(int mutationRate) {
     }
 
 
+}
+
+int EnemyUnit::getI() const {
+    return i;
+}
+
+void EnemyUnit::setI(int i) {
+    EnemyUnit::i = i;
+}
+
+int EnemyUnit::getJ() const {
+    return j;
+}
+
+void EnemyUnit::setJ(int j) {
+    EnemyUnit::j = j;
 }

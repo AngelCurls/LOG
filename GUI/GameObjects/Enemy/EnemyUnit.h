@@ -18,8 +18,18 @@ public:
 
     void mutate(int mutationRate);
 
+    int getI() const;
+
+    void setI(int i);
+
+    int getJ() const;
+
+    void setJ(int j);
+
 private:
     DNA* unitDNA = nullptr;
+    int i;
+    int j;
 
 
 };

@@ -16,9 +16,9 @@ public:
 
     void setVida(int vida);
 
-    int getDefenza() const;
+    int getDefensa() const;
 
-    void setDefenza(int defenza);
+    void setDefensa(int defenza);
 
     int getAtaque() const;
 
@@ -28,18 +28,28 @@ public:
 
     int getVidaMaxima() const;
 
-    int getDefenzaMaxima() const;
+    int getDefensaMaxima() const;
 
     int getAtaqueMaximo() const;
 
+    int getRedPhenotype() const;
+
+    int getGreenPhenotype() const;
+
+    int getBluePhenotype() const;
+
 private:
     int vida;
-    int defenza;
+    int defensa;
     int ataque;
 
-    int vidaMaxima = 30;
-    int defenzaMaxima = 25;
-    int ataqueMaximo = 10;
+    int vidaMaxima = 120;
+    int defensaMaxima = 120;
+    int ataqueMaximo = 120;
+
+    unsigned int redPhenotype;
+    unsigned int greenPhenotype;
+    unsigned int bluePhenotype;
 
 };
 
