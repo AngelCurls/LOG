@@ -16,19 +16,19 @@ void Player::draw() {
 
     if (path != nullptr && path->size() > 0) {
             for (auto currentCell : *path) {
-                    float x = currentCell->getXpos() * 10;
-                    float y = currentCell->getYpos() * 10;
+                    float x = currentCell->getXpos() * this->drawRelationRatio;
+                    float y = currentCell->getYpos() * this->drawRelationRatio;
                     this->i = currentCell->getXpos();
                     this->j = currentCell->getYpos();
-                    al_draw_filled_rectangle(x, y, x + 10, y + 10, al_map_rgb(155, 155, 155)); // draws path
+                    al_draw_filled_rectangle(x, y, x + this->drawRelationRatio, y + this->drawRelationRatio, al_map_rgb(155, 155, 155)); // draws path
 
             }
             delete(path);
             path = nullptr;
 
         }
-    float x = i * 10;
-    float y = j * 10;
+    float x = i * this->drawRelationRatio;
+    float y = j * this->drawRelationRatio;
 
     al_draw_bitmap(player,x-25,y-25,0);
     //al_draw_filled_rectangle(x,y,x+10,y+10,al_map_rgb(255,98,115)); // draws player rectangle
@@ -69,4 +69,12 @@ void Player::setJ(int j) {
 void Player::setSpeed(int speed) {
     this->speed = speed;
 
+}
+
+int Player::getDrawRelationRatio() const {
+    return drawRelationRatio;
+}
+
+void Player::setDrawRelationRatio(int drawRelationRatio) {
+    Player::drawRelationRatio = drawRelationRatio;
 }

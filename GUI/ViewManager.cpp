@@ -118,6 +118,7 @@ void ViewManager::mainLoop() {
 
     Population* playerPopulation = new Population();
     playerPopulation->setMap(graph);
+    playerPopulation->setDrawPopulationRatio(this->relationRatio);
 
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
@@ -126,7 +127,7 @@ void ViewManager::mainLoop() {
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(3);
+    Level* gameLevel = LevelBuilder::getLevel(0);
     ALLEGRO_EVENT event;
     while (showing){
 
@@ -250,8 +251,8 @@ void ViewManager::drawMap(Graph *graph) {
             else if (cellCurrent->getObjectID() == 3) {
                 obstacleColor = al_map_rgb(255, 0, 0);
             }
-            al_draw_filled_rectangle(cellCurrent->getXpos() * 10, cellCurrent->getYpos() * 10,
-                                     cellCurrent->getXpos() * 10 + 10, cellCurrent->getYpos() * 10 + 10,
+            al_draw_filled_rectangle(cellCurrent->getXpos() * this->relationRatio, cellCurrent->getYpos() * this->relationRatio,
+                                     cellCurrent->getXpos() * this->relationRatio + this->relationRatio, cellCurrent->getYpos() * this->relationRatio + this->relationRatio,
                                      obstacleColor);
         }
 

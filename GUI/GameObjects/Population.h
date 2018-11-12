@@ -27,6 +27,8 @@ public:
 
     void setPlayersSpeed(int speed);
 
+    void setDrawPopulationRatio(int populationRatio);
+
 private:
 
     Graph* map;

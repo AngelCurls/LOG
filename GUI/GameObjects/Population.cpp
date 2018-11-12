@@ -56,3 +56,12 @@ void Population::setPlayersSpeed(int speed) {
     }
 
 }
+
+
+void Population::setDrawPopulationRatio(int populationRatio) {
+    for (int k = 0; k < 10; k++) {
+
+        this->players[k]->setDrawRelationRatio(populationRatio);
+    }
+
+}

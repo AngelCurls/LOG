@@ -41,7 +41,12 @@ public:
 
     void setPath(std::list<Cell<int> *> *path);
 
+    int getDrawRelationRatio() const;
+
+    void setDrawRelationRatio(int drawRelationRatio);
+
 private:
+    int drawRelationRatio = 15;
     int i = 0;
     int j = 49;
     int moving = false;
