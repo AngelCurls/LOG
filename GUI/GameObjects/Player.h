@@ -47,7 +47,7 @@ public:
 
     void setDrawRelationRatio(int drawRelationRatio);
 
-    int speed = 5; // cuanto mayor sea el numero, menor es la velocidad
+    int speed = 0; // cuanto mayor sea el numero, menor es la velocidad
     int speedClock = speed;
 
 private:
