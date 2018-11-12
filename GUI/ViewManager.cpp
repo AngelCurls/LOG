@@ -121,7 +121,7 @@ void ViewManager::mainLoop() {
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     ALLEGRO_KEYBOARD_STATE keyState;
-    int levelNumber = 1;
+    int levelNumber = 0;
     int yGraph = 0;
     int xGraph = 0;
 

@@ -26,6 +26,16 @@ void Player::draw() {
     float y = j * this->drawRelationRatio;
     al_draw_bitmap(playerImage, x-25, y-25,0);
 
+    //Ecuacion de la recta para calcular el color rojo
+    unsigned int redColorHealth = -17/2 * this->health + 255;
+
+    //Ecuacion de la recta para calcular el color verde
+    unsigned int greenColorHealth = 17/2 * this->health;
+
+    //Ecuacion de la recta para calcular el largo de la barra
+    float healthBarLength = 6/3 * this->health;
+
+    al_draw_filled_rectangle(x - 25 , y - 30, x - 25 + healthBarLength, y - 28 , al_map_rgb(redColorHealth,greenColorHealth,0));
     //al_draw_filled_rectangle(x,y,x+10,y+10,al_map_rgb(255,98,115)); // draws player rectangle
 
 }

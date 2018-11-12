@@ -47,16 +47,27 @@ public:
     void drawPlayer();
 
 private:
+
     ViewManager* viewManagerInstance = nullptr;
+
     bool showing = false;
+
     ALLEGRO_DISPLAY* ptrDisplay = nullptr;
+
     ALLEGRO_DISPLAY* menuDisplay = nullptr;
+
     void mainLoop();
+
     ALLEGRO_TIMER* timer;
+
     ALLEGRO_TIMER* timerDraw;
+
     ALLEGRO_EVENT_QUEUE* eventQueue;
+
     ALLEGRO_SAMPLE * music;
+
     ALLEGRO_SAMPLE_INSTANCE *songInstance;
+
     ALLEGRO_BITMAP* image;
 
 

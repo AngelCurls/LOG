@@ -52,6 +52,9 @@ private:
     int i = 0;
     int j = 49;
     int moving = false;
+
+    //Vida maxima 30
+    int health = 15;
     ALLEGRO_BITMAP *playerImage =  al_load_bitmap("../Images/sold1.png");
 //<<<<<<< Updated upstream
     int speed = 100;
