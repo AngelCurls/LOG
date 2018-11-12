@@ -16,8 +16,6 @@ ViewManager::ViewManager() {
 
     bool t =al_init_primitives_addon();
 
-
-
     int fps = 60;
 
     this->timer = al_create_timer(1.0/fps);
@@ -123,11 +121,11 @@ void ViewManager::mainLoop() {
     std::list<Cell<int>*>* path = nullptr;
     ALLEGRO_MOUSE_STATE mouseState;
     ALLEGRO_KEYBOARD_STATE keyState;
-    int levelNumber = 0;
+    int levelNumber = 1;
     int yGraph = 0;
     int xGraph = 0;
 
-    Level* gameLevel = LevelBuilder::getLevel(0);
+    Level* gameLevel = LevelBuilder::getLevel(levelNumber);
     ALLEGRO_EVENT event;
     while (showing){
 

@@ -7,7 +7,7 @@
 
 Population::Population() {
     for (int i = 0; i < sizeof(players)/sizeof(*players); i++) {
-        this->players[i] = new Player(49 - 3 * i); // Crea 5 jugadores y uno va encima del otro
+        this->players[i] = new Player(0, 49 - 3 * i); // Crea 5 jugadores y uno va encima del otro
     }
 
 }

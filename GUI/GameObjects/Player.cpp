@@ -2,45 +2,37 @@
 // Created by edmobe on 29/10/18.
 //
 
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_image.h>
 #include "Player.h"
 
 Player::Player() {}
-Player::Player(int y) {
+Player::Player(int x, int y) {
+    i = x;
     j = y;
 }
 
 void Player::draw() {
-    ALLEGRO_BITMAP *player =  al_load_bitmap("../Images/sold1.png");
-
     if (path != nullptr && path->size() > 0) {
-            for (auto currentCell : *path) {
-                    float x = currentCell->getXpos() * this->drawRelationRatio;
-                    float y = currentCell->getYpos() * this->drawRelationRatio;
-                    this->i = currentCell->getXpos();
-                    this->j = currentCell->getYpos();
-                    al_draw_filled_rectangle(x, y, x + this->drawRelationRatio, y + this->drawRelationRatio, al_map_rgb(155, 155, 155)); // draws path
-
-            }
-            delete(path);
-            path = nullptr;
+        for (auto currentCell : *path) {
+            float x = currentCell->getXpos() * this->drawRelationRatio;
+            float y = currentCell->getYpos() * this->drawRelationRatio;
+            this->i = currentCell->getXpos();
+            this->j = currentCell->getYpos();
+            al_draw_filled_rectangle(x, y, x + this->drawRelationRatio, y + this->drawRelationRatio,
+                                     al_map_rgb(155, 155, 155)); // draws path
 
         }
+    }
     float x = i * this->drawRelationRatio;
     float y = j * this->drawRelationRatio;
+    al_draw_bitmap(playerImage, x-25, y-25,0);
 
-    al_draw_bitmap(player,x-25,y-25,0);
     //al_draw_filled_rectangle(x,y,x+10,y+10,al_map_rgb(255,98,115)); // draws player rectangle
 
-    }
+}
 
 void Player::attack() {
 
-    
 }
-
-
 
 std::list<Cell<int> *> *Player::getPath() const {
     return path;
