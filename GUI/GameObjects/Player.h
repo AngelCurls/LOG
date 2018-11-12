@@ -47,6 +47,9 @@ public:
 
     void setDrawRelationRatio(int drawRelationRatio);
 
+    int speed = 5; // cuanto mayor sea el numero, menor es la velocidad
+    int speedClock = speed;
+
 private:
     int drawRelationRatio = 15;
     int i = 0;
@@ -57,9 +60,6 @@ private:
     int health = 15;
     ALLEGRO_BITMAP *playerImage =  al_load_bitmap("../Images/sold1.png");
 //<<<<<<< Updated upstream
-    int speed = 100;
-//=======
-    int speedClock = speed;
 //>>>>>>> Stashed changes
     //ALLEGRO_BITMAP  *p1;
 };

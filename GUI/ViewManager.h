@@ -14,6 +14,7 @@
 #include "../Levels/Level.h"
 #include "LevelBuilder.h"
 #include "../ADTStructures/LinkedList.cpp"
+#include "../Controller/Controller.h"
 #include <allegro5/allegro_acodec.h>
 
 
