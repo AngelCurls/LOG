@@ -1,3 +1,6 @@
+#include <atomic>
+#include <thread>
+#include <chrono>
 #include "ViewManager.h"
 
 #include <allegro5/allegro_primitives.h>
@@ -28,13 +31,16 @@ ViewManager::ViewManager() {
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timer));
     al_register_event_source(this->eventQueue,al_get_timer_event_source(this->timerDraw));
 
-
-
     showing = true;
 
+    /*
+    // ==================== INITIALIZE THREAD ====================================
 
-
-
+    std::atomic<bool> running { true } ;
+    const unsigned int update_interval = 20 ; // update after every second
+    std::thread update_thread(Controller::run, std::ref(running), update_interval);
+    // ============================================================================
+    */
 }
 
 void ViewManager::showDisplay() {

@@ -16,6 +16,7 @@
 #include "../ADTStructures/LinkedList.cpp"
 #include "GameObjects/Population.h"
 #include "GameObjects/Enemy/EnemiesPopulation.h"
+#include "../Controller/Controller.h"
 #include <allegro5/allegro_acodec.h>
 #include "GameObjects/Population.h"
 #include "GameObjects/Enemy/EnemiesPopulation.h"

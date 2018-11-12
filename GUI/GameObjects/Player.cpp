@@ -15,8 +15,8 @@ void Player::draw() {
         for (auto currentCell : *path) {
             float x = currentCell->getXpos() * this->drawRelationRatio;
             float y = currentCell->getYpos() * this->drawRelationRatio;
-            this->i = currentCell->getXpos();
-            this->j = currentCell->getYpos();
+            //this->i = currentCell->getXpos();
+            //this->j = currentCell->getYpos();
             al_draw_filled_rectangle(x, y, x + this->drawRelationRatio, y + this->drawRelationRatio,
                                      al_map_rgb(155, 155, 155)); // draws path
 
