@@ -33,7 +33,7 @@ void Player::draw() {
     unsigned int greenColorHealth = 17/2 * this->health;
 
     //Ecuacion de la recta para calcular el largo de la barra
-    float healthBarLength = 6/3 * this->health;
+    float healthBarLength = 5/3 * this->health;
 
     al_draw_filled_rectangle(x - 25 , y - 30, x - 25 + healthBarLength, y - 28 , al_map_rgb(redColorHealth,greenColorHealth,0));
     //al_draw_filled_rectangle(x,y,x+10,y+10,al_map_rgb(255,98,115)); // draws player rectangle
@@ -79,4 +79,12 @@ int Player::getDrawRelationRatio() const {
 
 void Player::setDrawRelationRatio(int drawRelationRatio) {
     Player::drawRelationRatio = drawRelationRatio;
+}
+
+int Player::getHealth() const {
+    return health;
+}
+
+void Player::setHealth(int health) {
+    Player::health = health;
 }

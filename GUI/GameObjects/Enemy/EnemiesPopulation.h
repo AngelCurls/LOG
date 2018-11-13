@@ -8,16 +8,19 @@
 
 #include "EnemyUnit.h"
 #include "../../../ADTStructures/Graph.h"
+#include "../Population.h"
 #include <vector>
 
 class EnemiesPopulation {
 private:
 
+    Graph* map = nullptr;
     EnemyUnit** population;
     int generation = 0;
     int enemyQuantity;
     int mutationRate = 1;
 
+    int animationTimer = 0;
     float relationRatio;
 
     std::vector<EnemyUnit*>* matingPool = nullptr;
@@ -43,6 +46,14 @@ public:
     float getRelationRatio() const;
 
     void setRelationRatio(float relationRatio);
+
+    void setMap(Graph *map);
+
+    void collisionPlayerDraw(Population *pPopulation);
+
+    void collisionPlayer(Population* playerPopulation);
+
+    bool playerInSight(Player* player, EnemyUnit *enemyUnit);
 };
 
 

@@ -9,7 +9,8 @@
 #define pop_num 10
 
 #include "Player.h"
-#include "../ViewManager.h"
+#include "Gem.h"
+#include "../../Levels/Level.h"
 #include <list>
 
 class Population: Player {
@@ -19,7 +20,6 @@ public:
     void draw();
 
 
-    Player* getPlayers();
 
     Graph *getMap() const;
 
@@ -30,6 +30,12 @@ public:
     void setPlayersSpeed(int speed);
 
     void setDrawPopulationRatio(int populationRatio);
+
+    bool collideWithGem(Gem *pGem);
+
+    Player *const *getPlayers() const;
+
+    int playerSize = 10;
 
 private:
 
