@@ -6,6 +6,8 @@
 #define LOG_PLAYERPOPULATION_H
 
 
+#define pop_num 10
+
 #include "Player.h"
 #include "../ViewManager.h"
 #include <list>
@@ -32,7 +34,7 @@ public:
 private:
 
     Graph* map;
-    Player* players[10];
+    Player* players[pop_num];
 
 };
 

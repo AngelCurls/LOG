@@ -10,15 +10,24 @@
 
 
 Level* LevelBuilder::getLevel(int levelNumber) {
-    if (levelNumber == 0)
-        return new AstarLevel();
+    Level* lvl = nullptr;
+    switch(levelNumber)
+    {
+        case 0:
+            lvl = new AstarLevel();
+            break;
 
-    else if (levelNumber == 1)
-        return new DijkstraLevel();
+        case 1:
+            lvl = new DijkstraLevel();
+            break;
 
-    else if (levelNumber == 2)
-        return new PrimLevel();
+        case 2:
+            lvl = new PrimLevel();
+            break;
 
-    else if (levelNumber == 3)
-        return new KruskalLevel();
+        case 3:
+            lvl = new KruskalLevel();
+            break;
+    }
+    return lvl;
 }

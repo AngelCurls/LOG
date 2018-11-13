@@ -5,7 +5,7 @@
 #include "Cell.h"
 
 template<typename T>
-Cell<T>::Cell(T Xpos, T Ypos, int objectID):Xpos(Xpos), Ypos(Ypos){
+Cell<T>::Cell(T Xpos, T Ypos):Xpos(Xpos), Ypos(Ypos){
     this->previous = nullptr;
 }
 
@@ -96,5 +96,8 @@ void Cell<T>::setVisited(bool pVisit) {
     Cell::visited = pVisit;
 }
 
-
+template<typename T>
+bool Cell<T>::operator==(const Cell<T> &cellToCompare) const {
+    return this->getXpos() == cellToCompare.getXpos() && this->getYpos() == cellToCompare.getYpos();
+}
 

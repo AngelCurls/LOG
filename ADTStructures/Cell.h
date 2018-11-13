@@ -8,7 +8,7 @@
 template <typename T>
 class Cell {
 public:
-    Cell(T Xpos,T Ypos, int objectID = 0);
+    Cell(T Xpos,T Ypos);
 
     int getObjectID() const;
 
@@ -47,13 +47,15 @@ public:
 
     void setVisited(bool pVisit);
 
+    bool operator == (const Cell<T> &cellToCompare) const;
+
 private:
     T Xpos;
     T Ypos;
     int ObjectID = 0;
     int g = 10000;
     int Heuristic = 0;
-    int DijkstraDistance;
+    int DijkstraDistance = 0;
     bool visited = false;
 
     int hashKey;
