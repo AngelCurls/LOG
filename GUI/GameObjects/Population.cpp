@@ -85,3 +85,7 @@ bool Population::collideWithGem(Gem *pGem) {
     }
     return collision;
 }
+
+Player *const *Population::getPlayers() const {
+    return players;
+}

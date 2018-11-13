@@ -18,7 +18,6 @@ public:
     void draw();
 
 
-    Player* getPlayers();
 
     Graph *getMap() const;
 
@@ -31,6 +30,10 @@ public:
     void setDrawPopulationRatio(int populationRatio);
 
     bool collideWithGem(Gem *pGem);
+
+    Player *const *getPlayers() const;
+
+    int playerSize = 10;
 
 private:
 

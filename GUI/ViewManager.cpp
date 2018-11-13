@@ -186,6 +186,7 @@ void ViewManager::mainLoop() {
                 }
 
 
+
             } else if (event.timer.source == this->timerDraw){
 
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
@@ -193,6 +194,8 @@ void ViewManager::mainLoop() {
                 drawMap(map);
                 playerPopulation->draw(); // Dibuja todos los jugadores
                 enemiesPopulation->draw();
+                enemiesPopulation->collisionPlayer(this->playerPopulation);
+
 
                 gem->draw();
 
