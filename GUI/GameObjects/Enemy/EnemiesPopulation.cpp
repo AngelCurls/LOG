@@ -8,6 +8,7 @@
 #include "EnemiesPopulation.h"
 #include "../Population.h"
 #include "../../../ADTStructures/Graph.h"
+#include "../AttackOne.h"
 
 EnemiesPopulation::EnemiesPopulation(int enemyQuantity, Graph *pGraph) {
 
@@ -153,42 +154,58 @@ void EnemiesPopulation::setMap(Graph *map) {
 }
 
 void EnemiesPopulation::collisionPlayerDraw(Population *pPopulation) {
+
+
     for (int j = 0; j < this->enemyQuantity; j++) {
-        EnemyUnit* enemyUnit = this->population[j];
+        EnemyUnit *enemyUnit = this->population[j];
         for (int i = 0; i < pPopulation->playerSize; i++) {
-            Player* player = pPopulation->getPlayers()[i];
+            Player *player = pPopulation->getPlayers()[i];
 
 
-            if (playerInSight(player,enemyUnit)) {
+            if (playerInSight(player, enemyUnit)) {
 
-                if(enemyUnit->getI() == player->getI()){
+                if (enemyUnit->getI() == player->getI() && animationTimer % 20 == 0) {
                     //Dibuja una linea de ataque enemigo
-                    al_draw_filled_rectangle(this->population[j]->getI()*this->relationRatio,
-                                             this->population[j]->getJ()*this->relationRatio,
-                                             pPopulation->getPlayers()[i]->getI()*this->relationRatio + 10,
-                                             pPopulation->getPlayers()[i]->getJ()*this->relationRatio,
-                                             al_map_rgb(55,100,150));
+                    al_draw_filled_rectangle(this->population[j]->getI() * this->relationRatio,
+                                             this->population[j]->getJ() * this->relationRatio,
+                                             pPopulation->getPlayers()[i]->getI() * this->relationRatio + 10,
+                                             pPopulation->getPlayers()[i]->getJ() * this->relationRatio,
+                                             al_map_rgb(55, 100, 150));
 
-                    pPopulation->getPlayers()[i]->setHealth(pPopulation->getPlayers()[i]->getHealth() - (this->population[j]->getUnitDNA()->getAtaque()*100/this->population[j]->getUnitDNA()->getAtaqueMaximo()));
+                    pPopulation->getPlayers()[i]->setHealth(pPopulation->getPlayers()[i]->getHealth() -
+                                                            (this->population[j]->getUnitDNA()->getAtaque() * 100 /
+                                                             this->population[j]->getUnitDNA()->getAtaqueMaximo()));
 
-                } else if(player->getJ() == enemyUnit->getJ()){
+                } else if (player->getJ() == enemyUnit->getJ() && animationTimer % 20 == 0) {
                     //Dibuja una linea de ataque enemigo
-                    al_draw_filled_rectangle(this->population[j]->getI()*this->relationRatio,
-                                             this->population[j]->getJ()*this->relationRatio,
-                                             pPopulation->getPlayers()[i]->getI()*this->relationRatio,
-                                             this->population[j]->getJ()*this->relationRatio + 10,al_map_rgb(55,100,150));
+                    al_draw_filled_rectangle(this->population[j]->getI() * this->relationRatio,
+                                             this->population[j]->getJ() * this->relationRatio,
+                                             pPopulation->getPlayers()[i]->getI() * this->relationRatio,
+                                             this->population[j]->getJ() * this->relationRatio + 10,
+                                             al_map_rgb(55, 100, 150));
                     //Disminuye la vida del jugador
-                    pPopulation->getPlayers()[i]->setHealth(pPopulation->getPlayers()[i]->getHealth() - (this->population[j]->getUnitDNA()->getAtaque()*100/this->population[j]->getUnitDNA()->getAtaqueMaximo()));
+                    pPopulation->getPlayers()[i]->setHealth(pPopulation->getPlayers()[i]->getHealth() -
+                                                            (this->population[j]->getUnitDNA()->getAtaque() * 100 /
+                                                             this->population[j]->getUnitDNA()->getAtaqueMaximo()));
 
                 }
 
+                al_draw_bitmap(this->alertImage, 650/4,650/4,0);
+
+
+
             }
+
 
         }
     }
 }
 
+
 bool EnemiesPopulation::playerInSight(Player* player, EnemyUnit *enemyUnit) {
+    if(player == nullptr || enemyUnit == nullptr) return false;
+
+
     bool inSight = false;
     if (enemyUnit->getJ() == player->getJ()) {
 
@@ -253,9 +270,12 @@ bool EnemiesPopulation::playerInSight(Player* player, EnemyUnit *enemyUnit) {
 void EnemiesPopulation::collisionPlayer(Population *playerPopulation) {
 
     this->animationTimer++;
-    if(this->animationTimer % 20 == 0){
-        collisionPlayerDraw(playerPopulation);
+    collisionPlayerDraw(playerPopulation);
 
-    }
 
+
+}
+
+int EnemiesPopulation::getEnemyQuantity() const {
+    return enemyQuantity;
 }
