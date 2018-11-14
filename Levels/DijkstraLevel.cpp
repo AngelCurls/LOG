@@ -5,6 +5,6 @@
 #include "DijkstraLevel.h"
 #include "../Algorithms/Dijkstra.h"
 
-std::list<Cell<int> *> *DijkstraLevel::getPath(Graph *graph, int xPlayer, int yPlayer, int xTarget, int yTarget) {
-    return Dijkstra::findPath(graph, xPlayer, yPlayer, xTarget, yTarget);
+std::list<Cell<int> *> *DijkstraLevel::getPath(Graph *graph, int xTarget, int yTarget, int xPlayer, int yPlayer) {
+    return Dijkstra::findPath(graph, xTarget, yTarget, xPlayer, yPlayer);
 }

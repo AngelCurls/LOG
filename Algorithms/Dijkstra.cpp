@@ -8,6 +8,7 @@ int Dijkstra::INF = 1000000;
 
 std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart, int iTarget, int jTarget) {
 
+
     //Cola de prioridad que coloque el nodo con la menor distancia en eñ inicio de la cola
     std::priority_queue<Cell<int>*, std::vector<Cell<int>*>,CompareNode> Nodos;
 
@@ -18,10 +19,10 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
     setDistanceInfinite(graph);
 
     //Celda de inicio
-    Cell<int>* start = graph->getKeyTable()[iStart][jStart];
+    Cell<int>* start = graph->getNode(iStart, jStart);
 
     //Celda final
-    Cell<int>* target = graph->getKeyTable()[iTarget][jTarget];
+    Cell<int>* target = graph->getNode(iTarget, jTarget);
 
     //Se coloca la distancia del inicio en cero, por que el costo de moverme al inicio es cero ya que estoy ahi
     start->setDijkstraDistance(0);
@@ -35,7 +36,7 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
         if (minCell == target){
             Cell<int>* current = minCell;
 
-            while (current != nullptr){
+            while (current != nullptr) {
                 if (current == start){
                     path->push_front(start);
                     break;
@@ -43,7 +44,8 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
                 path->push_front(current);
                 current = current->getPrevious();
             }
-
+            if (path->front()->getObjectID() > 0 && path->front()->getObjectID() < 10)
+                path->pop_front();
             break;
         }
 
@@ -55,27 +57,15 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
             int tempDistance = minCell->getDijkstraDistance() + 1;
 
             //Si el la distancia que posee el nodo es mayor a la tentativa se le asigna y se coloca el nodo en la cola
-            if (neightbor->getDijkstraDistance() > tempDistance && (neightbor->getObjectID() == 0 || neightbor->getObjectID() == 10) ){
+            if (neightbor->getDijkstraDistance() > tempDistance && (neightbor->getObjectID() == 0 || neightbor->getObjectID() == 10)){
 
                 neightbor->setDijkstraDistance(tempDistance);
                 neightbor->setPrevious(minCell);
                 Nodos.push(neightbor);
-
-
             }
-
-
-
-
         }
-
     }
-
-
     return path;
-
-
-
 }
 
 void Dijkstra::setDistanceInfinite(Graph *graph) {

@@ -7,7 +7,7 @@
 
 class Prim {
 public:
-    static std::list<Cell<int>*>* findPath(Graph* graph, int iTarget, int jTarget, int iPlayer, int jPlayer);
+    static std::list<Cell<int>*>* findPath(Graph* graph, int iPlayer, int jPlayer, int iTarget, int jTarget);
 
 private:
     static std::list<Cell<int> *>* path;

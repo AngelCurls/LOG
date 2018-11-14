@@ -9,7 +9,7 @@ int Kruskal::yTarget = -1;
 
 
 
-std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget, int iPlayer, int jPlayer) {
+std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iPlayer, int jPlayer, int iTarget, int jTarget) {
     //si el punto del click cambia, se recalcula el arbol
     //if (path == nullptr || (iTarget != xTarget || jTarget != yTarget)) {
         xTarget = iTarget;
@@ -41,7 +41,7 @@ std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget
 
             //Si la celda actual esta junto a la objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
             else if (target->getObjectID() > 0 &&
-                     (abs(currentCell->getXpos() - iTarget) <= 1 && abs(currentCell->getYpos() - jTarget) <= 1))
+                     (abs(currentCell->getXpos() - iTarget) <= 1 || abs(currentCell->getYpos() - jTarget) <= 1))
                 targetFound = progress = true;
 
                 //Si ninguno se cumple, se analizaran las celdas cercanas unidas con los edges del MST

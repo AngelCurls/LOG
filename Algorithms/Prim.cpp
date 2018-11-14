@@ -8,7 +8,7 @@ int Prim::yTarget = -1;
 
 
 
-std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, int iPlayer, int jPlayer) {
+std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iPlayer, int jPlayer, int iTarget, int jTarget) {
     //si el punto del click cambia, se recalcula el arbol
     if (path == nullptr || (iTarget != xTarget || jTarget != yTarget))
     {
@@ -38,7 +38,7 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
 
             //Si la celda actual esta junto al objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
             else if (target->getObjectID() > 0 && target->getObjectID() < 10 &&
-                     (abs(currentCell->getXpos() - iTarget) <= 1 && abs(currentCell->getYpos() - jTarget) <= 1))
+                     (abs(currentCell->getXpos() - iTarget) <= 1 || abs(currentCell->getYpos() - jTarget) <= 1))
                 targetFound = true;
 
                 //Si ninguno se cumple, se analizaran las celdas cercanas unidas con los edges del MST

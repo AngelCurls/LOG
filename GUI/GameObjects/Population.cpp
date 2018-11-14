@@ -23,10 +23,6 @@ void Population::draw() {
 void Population::setPath(Level *gameLevel, int xGraph, int yGraph) {
     for (int i = 0; i < sizeof(players)/sizeof(*players) ; i++) {
         players[i]->path = gameLevel->getPath(map, xGraph, yGraph, players[i]->getI(), players[i]->getJ()); // Encuentra un path para un mapa específico para cada uno de los jugadores
-        /*
-        std::list<Cell<int> *> *path = AStar::findPath(this->map, players[k]->getI(), this->getJ(), i + k, j);
-        players[k]->setPath(path);
-         */
     }
 
 }

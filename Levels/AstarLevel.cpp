@@ -5,6 +5,6 @@
 #include "AstarLevel.h"
 #include "../Algorithms/AStar.h"
 
-std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget, int yTarget) {
-    return AStar::findPath(graph,xPlayer,yPlayer,xTarget,yTarget);
+std::list<Cell<int>*>* AstarLevel::getPath(Graph* graph, int xTarget, int yTarget, int xPlayer, int yPlayer) {
+    return AStar::findPath(graph, xTarget, yTarget, xPlayer, yPlayer);
 }
