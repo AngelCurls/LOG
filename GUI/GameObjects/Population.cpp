@@ -73,7 +73,7 @@ void Population::setDrawPopulationRatio(int populationRatio) {
 bool Population::collideWithGem(Gem *pGem) {
     bool collision = false;
 
-    for (int k = 0; k < 10; k++) {
+    for (int k = 0; k < sizeof(players)/sizeof(*players); k++) {
         Player* player = players[k];
         if(player->getI() == pGem->getI() && player->getJ() == pGem->getJ()){
             collision = true;

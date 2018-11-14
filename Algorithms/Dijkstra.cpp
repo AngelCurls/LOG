@@ -11,10 +11,8 @@ std::list<Cell<int> *>* Dijkstra::findPath(Graph *graph, int iStart, int jStart,
     //Cola de prioridad que coloque el nodo con la menor distancia en eñ inicio de la cola
     std::priority_queue<Cell<int>*, std::vector<Cell<int>*>,CompareNode> Nodos;
 
-
-
     //lista con los nodos que hacen el camino
-    std::list<Cell<int>*>* path = new std::list<Cell<int>*>();;
+    auto* path = new std::list<Cell<int>*>();;
 
     //Se colocan todas las distancias en infinito, por que aun no se visitan
     setDistanceInfinite(graph);

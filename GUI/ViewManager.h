@@ -30,7 +30,7 @@ public:
 
     int Width = 650;
 
-    float relationRatio = 13;
+    int relationRatio = 13;
 
     void showDisplay();
 

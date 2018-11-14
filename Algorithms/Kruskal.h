@@ -15,10 +15,7 @@ private:
     static int yTarget;
 
     //se crea un arbol de expansion minima para un solo nodo objetivo. Si este cambia, se recalculara
-
     static Graph* findMST(Graph* graph, int iStart, int jStart, int iPlayer, int jPlayer);
-    static void printpath(std::list<Cell<int>*> path);
-    static void printpath(std::vector<Cell<int>*> path);
 };
 
 

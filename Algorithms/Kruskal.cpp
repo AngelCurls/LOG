@@ -30,7 +30,7 @@ std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget
         // usando dos pilas > cellStack = pila de celdas que se van analizando
         //                  > pathStack = pila de celdas que se han recorrido hasta el momento
         // se van agregando nodos para calcular el path
-        // empezando desde la posicion del jugador y utilizando los edges del MST
+        // empezando desde el objetivo y utilizando los edges del MST
         while (!targetFound) {
             progress = false;
             currentCell = cellStack->back(), cellStack->pop_back();
@@ -65,7 +65,6 @@ std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget
             if (progress) {
                 pathStack->push_back(currentCell);
                 previousCell = currentCell;
-                //printpath(pathStack);
             }
                 // si no, se retrocede una celda en el path actual
             else {
@@ -82,26 +81,6 @@ std::list<Cell<int> *> *Kruskal::findPath(Graph *graph, int iTarget, int jTarget
         }
     //}
     return path;
-}
-
-void Kruskal::printpath(std::vector<Cell<int>*> path)
-{
-    std::cout << "Path order :: =";
-    for (Cell<int>* cell : path)
-    {
-        std::cout << "> [" << cell->getXpos() << ", " << cell->getYpos() << "]";
-    }
-    std::cout << std::endl;
-}
-
-void Kruskal::printpath(std::list<Cell<int>*> path)
-{
-    std::cout << "Path order :: =";
-    for (Cell<int>* cell : path)
-    {
-        std::cout << "> [" << cell->getXpos() << ", " << cell->getYpos() << "]";
-    }
-    std::cout << std::endl;
 }
 
 Graph* Kruskal::findMST(Graph* graph, int iStart, int jStart, int iPlayer, int jPlayer) {
@@ -132,14 +111,12 @@ Graph* Kruskal::findMST(Graph* graph, int iStart, int jStart, int iPlayer, int j
 
                 //si la celda adyacente no esta visitada ya y no es un obstaculo
                 //se creara un Edge hacia el
-                if (!MSTCell->isVisited() && adjacentCell->getObjectID() <= 0) {
+                if (!MSTCell->isVisited() && (adjacentCell->getObjectID() == 0 ||
+                                              adjacentCell->getObjectID() == 10))
+                {
                     visited.push(adjacentCell);
                     MSTCell->setVisited(true);
-
-                    //se asegura tambien que la celda actual no sea un obstaculo para crear el Edge
-                    if (currentCell->getObjectID() <= 0) {
-                        MST->addEdge(adjacentCell, currentCell);
-                    }
+                    MST->addEdge(adjacentCell, currentCell);
                 }
 
                 //si la celda adyacente es el objetivo, se detiene el ciclo

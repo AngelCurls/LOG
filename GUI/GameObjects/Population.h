@@ -6,7 +6,7 @@
 #define LOG_PLAYERPOPULATION_H
 
 
-#define pop_num 10
+#define pop_num 1
 
 #include "Player.h"
 #include "Gem.h"
@@ -18,8 +18,6 @@ public:
     Population();
     void setPath(Level *gameLevel, int xGraph, int yGraph);
     void draw();
-
-
 
     Graph *getMap() const;
 
@@ -35,7 +33,7 @@ public:
 
     Player *const *getPlayers() const;
 
-    int playerSize = 10;
+    int playerSize = pop_num;
 
 private:
 

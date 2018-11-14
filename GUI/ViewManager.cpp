@@ -117,7 +117,14 @@ void ViewManager::mainLoop() {
 
     ALLEGRO_FONT *font = al_load_font("arial.ttf",72,0 );
 
-    this->levelNumber = 0;
+    /*  0 = LineSight
+     *  1 = Prim
+     *  2 = Kruskal
+     *  3 = Dijkstra
+     *  4 = A Star
+     */
+    this->levelNumber = 1;
+
     this->map = new Graph(50,50,levelNumber + 1);
     this->map->generateGrid();
 
@@ -217,7 +224,7 @@ void ViewManager::mainLoop() {
 
 
 ViewManager* ViewManager::getInstance() {
-    ViewManager* ptrInstance = new ViewManager();
+    auto* ptrInstance = new ViewManager();
     ptrInstance->viewManagerInstance = ptrInstance;
     return ptrInstance;
 }

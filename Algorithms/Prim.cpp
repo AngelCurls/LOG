@@ -19,58 +19,44 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
         bool targetFound = false,
              progress;
         std::set<Cell<int> *> adjacencyList;
-        auto *cellStack = new std::vector<Cell<int> *>(),
-                *pathStack = new std::vector<Cell<int> *>();
-        cellStack->push_back(MST->getNode(iPlayer, jPlayer));
+        auto *pathStack = new std::vector<Cell<int> *>();
+        pathStack->push_back(MST->getNode(iPlayer, jPlayer));
 
         Cell<int> *currentCell = nullptr,
-                  *previousCell = nullptr,
                   *target = graph->getNode(iTarget, jTarget);
 
-        // usando dos pilas > cellStack = pila de celdas que se van analizando
-        //                  > pathStack = pila de celdas que se han recorrido hasta el momento
+        // usando pathStack = pila de celdas que se han recorrido hasta el momento
         // se van agregando nodos para calcular el path
         // empezando desde la posicion del jugador y utilizando los edges del MST
         while (!targetFound) {
-            progress = false;
-            currentCell = cellStack->back(), cellStack->pop_back();
+            currentCell = pathStack->back();
+            currentCell->setVisited(true);
 
             //Si la celda actual es el objetivo, se quedara en el mismo lugar
             if (currentCell == target)
-                targetFound = progress = true;
+                targetFound = true;
 
-                //Si la celda actual esta junto a la objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
-            else if (target->getObjectID() > 0 &&
+            //Si la celda actual esta junto al objetivo, pero el objetivo es un obstaculo, se quedara en el mismo lugar
+            else if (target->getObjectID() > 0 && target->getObjectID() < 10 &&
                      (abs(currentCell->getXpos() - iTarget) <= 1 && abs(currentCell->getYpos() - jTarget) <= 1))
-                targetFound = progress = true;
+                targetFound = true;
 
                 //Si ninguno se cumple, se analizaran las celdas cercanas unidas con los edges del MST
             else {
+                progress = false;
                 adjacencyList = MST->getNodeAdjacencyList(currentCell->getXpos(), currentCell->getYpos());
 
                 //para cada celda unida a la actual...
                 for (Cell<int> *adjacentCell : adjacencyList) {
-
                     //Si la celda adyacente no es la anterior o no ha sido visitada ya, se agrega a la pila
-                    if (!adjacentCell->isVisited() &&
-                        (previousCell == nullptr || previousCell != adjacentCell)) {
-                        cellStack->push_back(adjacentCell);
+                    if (!adjacentCell->isVisited()) {
+                        pathStack->push_back(adjacentCell);
                         progress = true;
-                    }
-                    if (adjacentCell == target)
                         break;
+                    }
                 }
-            }
-            // si se ha avanzado de celda, se inserta la celda actual en pathStack para avanzar a las cercanas a ella
-            if (progress) {
-                pathStack->push_back(currentCell);
-                previousCell = currentCell;
-                //printpath(pathStack);
-            }
-                // si no, se retrocede una celda en el path actual
-            else {
-                currentCell->setVisited(true);
-                previousCell = pathStack->back(), pathStack->pop_back();
+                if (!progress)
+                    pathStack->pop_back();
             }
         }
 
@@ -84,29 +70,9 @@ std::list<Cell<int> *> *Prim::findPath(Graph *graph, int iTarget, int jTarget, i
     return path;
 }
 
-void Prim::printpath(std::vector<Cell<int>*> path)
-{
-    std::cout << "Path order :: =";
-    for (Cell<int>* cell : path)
-    {
-        std::cout << "> [" << cell->getXpos() << ", " << cell->getYpos() << "]";
-    }
-    std::cout << std::endl;
-}
-
-void Prim::printpath(std::list<Cell<int>*> path)
-{
-    std::cout << "Path order :: =";
-    for (Cell<int>* cell : path)
-    {
-        std::cout << "> [" << cell->getXpos() << ", " << cell->getYpos() << "]";
-    }
-    std::cout << std::endl;
-}
-
 Graph* Prim::findMST(Graph* graph, int iStart, int jStart, int iTarget, int jTarget) {
     //se crea un nuevo grafo, que sera el arbol de expansion minima
-    Graph *MST = new Graph(graph->getHeight(), graph->getWidth());
+    auto MST = new Graph(graph->getHeight(), graph->getWidth());
 
     Cell<int> *currentCell, *MSTCell, *target = graph->getNode(iTarget, jTarget);
     std::set<Cell<int> *> adjacencyList;
@@ -127,14 +93,12 @@ Graph* Prim::findMST(Graph* graph, int iStart, int jStart, int iTarget, int jTar
 
             //si la celda adyacente no esta visitada ya y no es un obstaculo
             //se creara un Edge hacia el
-            if (!MSTCell->isVisited() && adjacentCell->getObjectID() <= 0) {
+            if (!MSTCell->isVisited() && (adjacentCell->getObjectID() == 0 ||
+                                          adjacentCell->getObjectID() == 10))
+            {
                 visited.push(adjacentCell);
                 MSTCell->setVisited(true);
-
-                //se asegura tambien que la celda actual no sea un obstaculo para crear el Edge
-                if (currentCell->getObjectID() <= 0) {
-                    MST->addEdge(currentCell, adjacentCell);
-                }
+                MST->addEdge(currentCell, adjacentCell);
             }
 
             //si la celda adyacente es el objetivo, se detiene el ciclo
@@ -146,6 +110,7 @@ Graph* Prim::findMST(Graph* graph, int iStart, int jStart, int iTarget, int jTar
     }
     //se reinicia el visitado de todas las celdas
     MST->restoreVisited();
+    graph->restoreVisited();
     return MST;
 }
 

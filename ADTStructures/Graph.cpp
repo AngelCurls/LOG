@@ -70,7 +70,6 @@ void Graph::restoreGraph() {
 }
 
 void Graph::restoreVisited() {
-    Cell<int>* currentCell;
     for (int i = 0; i < this->height ; i++)
         for (int j = 0; j < this->width; j++)
             this->keyTable[i][j]->setVisited(false);

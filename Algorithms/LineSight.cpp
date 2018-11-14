@@ -10,7 +10,7 @@ std::list<Cell<int> *> *LineSight::findPath(Graph *graph, int iStart, int jStart
     Cell<int>* start = graph->getKeyTable()[iStart][jStart];
     Cell<int>* target = graph->getKeyTable()[iTarget][jTarget];
 
-    std::list<Cell<int>*>* path = new std::list<Cell<int>* >();
+    auto *path = new std::list<Cell<int>* >();
 
     int iCurrent = iStart;
     int jCurrent = jStart;

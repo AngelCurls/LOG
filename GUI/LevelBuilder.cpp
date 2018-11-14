@@ -3,6 +3,7 @@
 //
 
 #include "LevelBuilder.h"
+#include "../Levels/LineSightLevel.h"
 #include "../Levels/AstarLevel.h"
 #include "../Levels/PrimLevel.h"
 #include "../Levels/KruskalLevel.h"
@@ -14,19 +15,23 @@ Level* LevelBuilder::getLevel(int levelNumber) {
     switch(levelNumber)
     {
         case 0:
-            lvl = new AstarLevel();
+            lvl = new LineSightLevel();
             break;
 
         case 1:
-            lvl = new DijkstraLevel();
-            break;
-
-        case 2:
             lvl = new PrimLevel();
             break;
 
-        case 3:
+        case 2:
             lvl = new KruskalLevel();
+            break;
+
+        case 3:
+            lvl = new DijkstraLevel();
+            break;
+
+        default:
+            lvl = new AstarLevel();
             break;
     }
     return lvl;
