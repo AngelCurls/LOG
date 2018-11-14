@@ -122,7 +122,7 @@ void ViewManager::mainLoop() {
      *  3 = Dijkstra
      *  4 = A Star
      */
-    this->levelNumber = 0;
+    //this->levelNumber = 1;
 
     this->map = new Graph(50,50,levelNumber+1);
     this->map->generateGrid();
