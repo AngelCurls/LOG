@@ -51,7 +51,7 @@ public:
 
     void setHealth(int health);
 
-    int speed = 0; // cuanto mayor sea el numero, menor es la velocidad
+    int speed = 1; // cuanto mayor sea el numero, menor es la velocidad
     int speedClock = speed;
 
 private:

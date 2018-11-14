@@ -15,7 +15,7 @@ Level* LevelBuilder::getLevel(int levelNumber) {
     switch(levelNumber)
     {
         case 0:
-            lvl = new LineSightLevel();
+            lvl = new AstarLevel();
             break;
 
         case 1:

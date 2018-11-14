@@ -25,6 +25,8 @@ private:
 
     std::vector<EnemyUnit*>* matingPool = nullptr;
 
+    ALLEGRO_BITMAP *alertImage =  al_load_bitmap("../Images/alert.png");
+
 public:
     EnemiesPopulation(int enemyQuantity, Graph *pGraph);
 
@@ -54,6 +56,8 @@ public:
     void collisionPlayer(Population* playerPopulation);
 
     bool playerInSight(Player* player, EnemyUnit *enemyUnit);
+
+    int getEnemyQuantity() const;
 };
 
 
