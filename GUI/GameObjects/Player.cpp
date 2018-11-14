@@ -31,16 +31,16 @@ void Player::draw() {
     al_draw_bitmap(playerImage, x-25, y-25,0);
 
     //Ecuacion de la recta para calcular el color rojo
-    unsigned int redColorHealth = -17/2 * this->health + 255;
+    unsigned int redColorHealth = -17/8 * this->health + 255;
 
     //Ecuacion de la recta para calcular el color verde
-    unsigned int greenColorHealth = 17/2 * this->health;
+    unsigned int greenColorHealth = 17/8 * this->health;
 
     //Ecuacion de la recta para calcular el largo de la barra
-    float healthBarLength = 5/3 * this->health;
+    float healthBarLength = 6* this->health /12;
 
     if(healthBarLength < 0) {
-        this->health = 30;
+        this->health = 120;
         this->j = 48;
         this->i = 0;
         delete path;

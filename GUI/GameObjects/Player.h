@@ -61,7 +61,7 @@ private:
     int moving = false;
 
     //Vida maxima 30
-    int health = 30;
+    int health = 120;
     ALLEGRO_BITMAP *playerImage =  al_load_bitmap("../Images/sold1.png");
 //<<<<<<< Updated upstream
 //>>>>>>> Stashed changes

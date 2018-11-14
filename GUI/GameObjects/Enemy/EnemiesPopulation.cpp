@@ -206,7 +206,7 @@ bool EnemiesPopulation::playerInSight(Player* player, EnemyUnit *enemyUnit) {
             return inSight;
 
         } else if (player->getI() < enemyUnit->getI()) {
-            for (int i = player->getI(); i < enemyUnit->getI() -1 ; i++) {
+            for (int i = player->getI()+1; i < enemyUnit->getI(); i++) {
                 inSight = true;
                 if (map->getKeyTable()[i][player->getJ()]->getObjectID() != 0) {
                     inSight = false;
@@ -235,7 +235,7 @@ bool EnemiesPopulation::playerInSight(Player* player, EnemyUnit *enemyUnit) {
 
             return inSight;
         } else if (player->getJ() < enemyUnit->getJ()) {
-            for (int i = player->getJ(); i < enemyUnit->getJ() - 1; i++) {
+            for (int i = player->getJ() + 1; i < enemyUnit->getJ(); i++) {
                 inSight = true;
                 if (map->getKeyTable()[player->getI()][i]->getObjectID() != 0) {
                     inSight = false;
