@@ -19,6 +19,8 @@ public:
     void setPath(Level *gameLevel, int xGraph, int yGraph);
     void draw();
 
+    int setAttack(int attack);
+
     Graph *getMap() const;
 
     void setMap(Graph *map);

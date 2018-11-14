@@ -37,11 +37,14 @@ public:
     int getGreenPhenotype() const;
 
     int getBluePhenotype() const;
+    int vidaOriginal;
 
 private:
     int vida;
     int defensa;
     int ataque;
+
+
 
     int vidaMaxima = 120;
     int defensaMaxima = 120;

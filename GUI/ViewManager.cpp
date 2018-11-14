@@ -172,18 +172,28 @@ void ViewManager::mainLoop() {
                 if(al_key_down(&keyState,ALLEGRO_KEY_Q)) {
                     std::cout << "Q \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
+                    this->playerPopulation->setAttack(1);
+
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_W) && levelNumber > 0) {
                     std::cout << "W \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
+                    this->playerPopulation->setAttack(1);
+
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_D)&& levelNumber > 3) {
                     std::cout << "E \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
+                    this->playerPopulation->setAttack(4);
+
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_A)&& levelNumber > 1) {
                     std::cout << "A \n";
                     //metodo para ataque desbloqueado
-                }else if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
+                    this->playerPopulation->setAttack(2);
+
+                }else if (al_key_down(&keyState, ALLEGRO_KEY_S)&& levelNumber > 2) {
+
                     std::cout << "S \n";
                     //metodo para ataque desbloqueado
+                    this->playerPopulation->setAttack(3);
                 }
 
                 if(playerPopulation->collideWithGem(gem) && levelNumber < 4) {

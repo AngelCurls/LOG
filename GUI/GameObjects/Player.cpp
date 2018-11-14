@@ -53,7 +53,8 @@ void Player::draw() {
 
 }
 
-void Player::attack() {
+int Player::attack() {
+    return this->damage;
 
 }
 

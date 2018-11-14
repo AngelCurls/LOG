@@ -12,6 +12,8 @@ DNA::DNA() {
     this->defensa = rand() % this->defensaMaxima + 1;
     this->vida = rand() % this->vidaMaxima + 1;
 
+    this->vidaOriginal = this->vida;
+
     this->redPhenotype = 255 - 255/this->ataqueMaximo * this->ataque;
     this->greenPhenotype = 255 - 255/this->vidaMaxima * this->vida;
     this->bluePhenotype = 255 - 255/this->defensaMaxima * this->defensa;
@@ -28,6 +30,9 @@ int DNA::getVida() const {
 }
 
 void DNA::setVida(int vida) {
+    if(vida < 0){
+        this->vida = 0;
+    }
     DNA::vida = vida % this->getVidaMaxima() + 1;
 }
 
