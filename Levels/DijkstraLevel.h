@@ -9,7 +9,7 @@
 #include "Level.h"
 
 class DijkstraLevel :public Level{
-    std::list<Cell<int> *> *getPath(Graph *graph, int xPlayer, int yPlayer, int xTarget, int yTarget) override;
+    std::list<Cell<int> *> *getPath(Graph *graph, int xTarget, int yTarget, int xPlayer, int yPlayer) override;
 
 
 };

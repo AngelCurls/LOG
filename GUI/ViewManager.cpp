@@ -96,7 +96,6 @@ void ViewManager::showDisplay() {
 
 
     }
-    al_destroy_display(menuDisplay);
     al_destroy_timer(timer);
     al_destroy_sample_instance(songInstance);
     al_destroy_sample(music);
@@ -123,9 +122,9 @@ void ViewManager::mainLoop() {
      *  3 = Dijkstra
      *  4 = A Star
      */
-    this->levelNumber = 1;
+    //this->levelNumber = 1;
 
-    this->map = new Graph(50,50,levelNumber);
+    this->map = new Graph(50,50,levelNumber+1);
     this->map->generateGrid();
 
     this->playerPopulation = new Population();
@@ -187,8 +186,7 @@ void ViewManager::mainLoop() {
                     //metodo para ataque desbloqueado
                 }
 
-                if(playerPopulation->collideWithGem(gem)){
-
+                if(playerPopulation->collideWithGem(gem) && levelNumber < 4) {
                     this->nextLevel();
                 }
 
@@ -305,7 +303,6 @@ void ViewManager::nextLevel() {
     //Obtiene un nuevo algoritmo de busqueda
     gameLevel = LevelBuilder::getLevel(levelNumber);
 
-
     //Genera una nueva gema
     gem = new Gem();
     //Carga el nuevo mapa
@@ -322,7 +319,4 @@ void ViewManager::nextLevel() {
     playerPopulation = new Population();
     playerPopulation->setMap(this->map);
     playerPopulation->setDrawPopulationRatio(this->relationRatio);
-
-
-
 }

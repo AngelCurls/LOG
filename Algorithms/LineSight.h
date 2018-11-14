@@ -14,6 +14,8 @@ class LineSight {
 public:
     static std::list<Cell<int>*>* findPath(Graph* graph, int iStart,int jStart, int iTarget, int jTarget);
 
+private:
+    static bool hasLineOfSight(Graph* graph, int iCurrent, int jCurrent, int iTarget, int jTarget);
 };
 
 

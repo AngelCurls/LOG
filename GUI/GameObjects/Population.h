@@ -6,7 +6,7 @@
 #define LOG_PLAYERPOPULATION_H
 
 
-#define pop_num 1
+#define pop_num 10
 
 #include "Player.h"
 #include "Gem.h"

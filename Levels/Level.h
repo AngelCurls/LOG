@@ -12,8 +12,7 @@
 
 class Level {
 public:
-    virtual std::list<Cell<int>*>* getPath(Graph* graph, int xPlayer, int yPlayer, int xTarget,
-                                                   int yTarget);
+    virtual std::list<Cell<int>*>* getPath(Graph* graph, int xTarget, int yTarget, int xPlayer, int yPlayer);
 
 };
 
