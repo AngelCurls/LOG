@@ -109,7 +109,22 @@ int* Graph::loadMap(int lvl) {
 
 Graph::~Graph() {
 
-    //TODO: Desarrollar el destructor
+
+    for (int i = 0; i < this->width; i++) {
+        for (int j = 0; j < this->height; j++) {
+
+            delete this->keyTable[i][j];
+
+        }
+        delete this->keyTable[i];
+        
+    }
+    delete this->keyTable;
+
+    for (int k = 0; k < this->width* this->height; k++) {
+        this->adjacencyList[k].clear();
+
+    }
 
 }
 

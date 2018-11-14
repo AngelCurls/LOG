@@ -49,6 +49,7 @@ public:
 
     bool operator == (const Cell<T> &cellToCompare) const;
 
+
 private:
     T Xpos;
     T Ypos;

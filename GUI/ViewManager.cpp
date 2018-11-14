@@ -125,7 +125,7 @@ void ViewManager::mainLoop() {
      */
     this->levelNumber = 1;
 
-    this->map = new Graph(50,50,levelNumber + 1);
+    this->map = new Graph(50,50,levelNumber);
     this->map->generateGrid();
 
     this->playerPopulation = new Population();

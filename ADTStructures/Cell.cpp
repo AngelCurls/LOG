@@ -101,3 +101,5 @@ bool Cell<T>::operator==(const Cell<T> &cellToCompare) const {
     return this->getXpos() == cellToCompare.getXpos() && this->getYpos() == cellToCompare.getYpos();
 }
 
+
+
