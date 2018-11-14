@@ -131,21 +131,20 @@ int main() {
         std::string command = "xdotool mousemove " + std::to_string(finalList.at(0) + 200) + " " + std::to_string(finalList.at(1));
         system(command.c_str());
 
-        if (finalList.at(2) == 0) {
-            //system("xdotool click 1");
-            system("xdotool key q");
+        if (finalList.size() == 8) {
+            if (finalList.at(2) == 0)
+                system("xdotool click 1");
+            if (finalList.at(3) == 0)
+                system("xdotool key q");
+            else if (finalList.at(4) == 0)
+                system("xdotool key w");
+            else if (finalList.at(5) == 0)
+                system("xdotool key a");
+            else if (finalList.at(6) == 0)
+                system("xdotool key s");
+            else if (finalList.at(7) == 0)
+                system("xdotool key d");
         }
+
     }
-
-    /* WRITE */
-    /*
-    unsigned char cmd[] = "INIT \r";
-    int n_written = 0,
-            spot = 0;
-
-    do {
-        n_written = write( USB, &cmd[spot], 1 );
-        spot += n_written;
-    } while (cmd[spot-1] != '\r' && n_written > 0);
-     */
 }

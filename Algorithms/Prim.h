@@ -10,13 +10,13 @@ public:
     static std::list<Cell<int>*>* findPath(Graph* graph, int iTarget, int jTarget, int iPlayer, int jPlayer);
 
 private:
-    static Graph* MST;
+    static std::list<Cell<int> *>* path;
     static int xTarget;
     static int yTarget;
 
     //se crea un arbol de expansion minima para un solo nodo objetivo. Si este cambia, se recalculara
 
-    static void findMST(Graph* graph, int iStart, int jStart, int iPlayer, int jPlayer);
+    static Graph* findMST(Graph* graph, int iStart, int jStart, int iTarget, int jTarget);
     static void printpath(std::list<Cell<int>*> path);
     static void printpath(std::vector<Cell<int>*> path);
 };

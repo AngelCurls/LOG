@@ -67,7 +67,7 @@ void ViewManager::showDisplay() {
 
         al_wait_for_event(this->eventQueue, &event);
 
-        al_draw_bitmap(image,0,0, NULL );
+        al_draw_bitmap(image,0,0, 0);
         al_flip_display();
         al_clear_to_color(al_map_rgb(0,0,0));
 
@@ -186,6 +186,7 @@ void ViewManager::mainLoop() {
                 }
 
 
+
             } else if (event.timer.source == this->timerDraw){
 
                 playerPopulation->updatePlayers(); // Hace que los jugadores se muevan según el path
@@ -193,10 +194,14 @@ void ViewManager::mainLoop() {
                 drawMap(map);
                 playerPopulation->draw(); // Dibuja todos los jugadores
                 enemiesPopulation->draw();
+                enemiesPopulation->collisionPlayer(this->playerPopulation);
+
 
                 gem->draw();
 
                 //Obtiene una nueva generacion cada vez que se dibuja, si molesta a la hora de probar, se pude comentar
+                //qenemiesPopulation->getNextGeneration();
+
                 al_flip_display();
             }
         }

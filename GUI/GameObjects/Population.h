@@ -6,6 +6,8 @@
 #define LOG_PLAYERPOPULATION_H
 
 
+#define pop_num 10
+
 #include "Player.h"
 #include "Gem.h"
 #include "../../Levels/Level.h"
@@ -18,7 +20,6 @@ public:
     void draw();
 
 
-    Player* getPlayers();
 
     Graph *getMap() const;
 
@@ -32,10 +33,14 @@ public:
 
     bool collideWithGem(Gem *pGem);
 
+    Player *const *getPlayers() const;
+
+    int playerSize = 10;
+
 private:
 
     Graph* map;
-    Player* players[10];
+    Player* players[pop_num];
 
 };
 

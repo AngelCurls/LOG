@@ -63,7 +63,7 @@ void Population::setPlayersSpeed(int speed) {
 
 
 void Population::setDrawPopulationRatio(int populationRatio) {
-    for (int k = 0; k < 10; k++) {
+    for (int k = 0; k < sizeof(players)/sizeof(*players); k++) {
 
         this->players[k]->setDrawRelationRatio(populationRatio);
     }
@@ -84,4 +84,8 @@ bool Population::collideWithGem(Gem *pGem) {
 
     }
     return collision;
+}
+
+Player *const *Population::getPlayers() const {
+    return players;
 }

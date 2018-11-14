@@ -47,6 +47,10 @@ public:
 
     void setDrawRelationRatio(int drawRelationRatio);
 
+    int getHealth() const;
+
+    void setHealth(int health);
+
     int speed = 0; // cuanto mayor sea el numero, menor es la velocidad
     int speedClock = speed;
 
@@ -57,7 +61,7 @@ private:
     int moving = false;
 
     //Vida maxima 30
-    int health = 15;
+    int health = 30;
     ALLEGRO_BITMAP *playerImage =  al_load_bitmap("../Images/sold1.png");
 //<<<<<<< Updated upstream
 //>>>>>>> Stashed changes
