@@ -28,6 +28,9 @@ int DNA::getVida() const {
 }
 
 void DNA::setVida(int vida) {
+    if(vida < 0){
+        this->vida = 0;
+    }
     DNA::vida = vida % this->getVidaMaxima() + 1;
 }
 

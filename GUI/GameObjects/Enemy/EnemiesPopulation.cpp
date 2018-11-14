@@ -132,13 +132,20 @@ void EnemiesPopulation::generateMatingPool() {
 
 void EnemiesPopulation::draw() {
     for (int i = 0; i < this->enemyQuantity; i++) {
-        float  x = this->population[i]->getI() * this->relationRatio;
-        float  y = this->population[i]->getJ() * this->relationRatio;
+        if (this->population[i]->getUnitDNA()->getVida() > 0) {
 
-        EnemyUnit* enemy = this->population[i];
-        al_draw_filled_rectangle(x,y,x + this->relationRatio, y + this->relationRatio, al_map_rgb((unsigned char)enemy->getUnitDNA()->getRedPhenotype(),(unsigned char)enemy->getUnitDNA()->getGreenPhenotype(),(unsigned char)enemy->getUnitDNA()->getBluePhenotype()));
+
+            float x = this->population[i]->getI() * this->relationRatio;
+            float y = this->population[i]->getJ() * this->relationRatio;
+
+            EnemyUnit *enemy = this->population[i];
+            al_draw_filled_rectangle(x, y, x + this->relationRatio, y + this->relationRatio,
+                                     al_map_rgb((unsigned char) enemy->getUnitDNA()->getRedPhenotype(),
+                                                (unsigned char) enemy->getUnitDNA()->getGreenPhenotype(),
+                                                (unsigned char) enemy->getUnitDNA()->getBluePhenotype()));
+        }
+
     }
-
 }
 
 float EnemiesPopulation::getRelationRatio() const {
@@ -162,7 +169,7 @@ void EnemiesPopulation::collisionPlayerDraw(Population *pPopulation) {
             Player *player = pPopulation->getPlayers()[i];
 
 
-            if (playerInSight(player, enemyUnit)) {
+            if (playerInSight(player, enemyUnit) && enemyUnit->getUnitDNA()->getVida() > 0) {
 
                 if (enemyUnit->getI() == player->getI() && animationTimer % 20 == 0) {
                     //Dibuja una linea de ataque enemigo
@@ -176,6 +183,9 @@ void EnemiesPopulation::collisionPlayerDraw(Population *pPopulation) {
                                                             (this->population[j]->getUnitDNA()->getAtaque() * 100 /
                                                              this->population[j]->getUnitDNA()->getAtaqueMaximo()));
 
+                    enemyUnit->getUnitDNA()->setVida(enemyUnit->getUnitDNA()->getVida() - player->attack() *10);
+                    printf("Ataque No%i", player->attack());
+
                 } else if (player->getJ() == enemyUnit->getJ() && animationTimer % 20 == 0) {
                     //Dibuja una linea de ataque enemigo
                     al_draw_filled_rectangle(this->population[j]->getI() * this->relationRatio,
@@ -187,6 +197,9 @@ void EnemiesPopulation::collisionPlayerDraw(Population *pPopulation) {
                     pPopulation->getPlayers()[i]->setHealth(pPopulation->getPlayers()[i]->getHealth() -
                                                             (this->population[j]->getUnitDNA()->getAtaque() * 100 /
                                                              this->population[j]->getUnitDNA()->getAtaqueMaximo()));
+
+                    enemyUnit->getUnitDNA()->setVida(enemyUnit->getUnitDNA()->getVida() - player->attack() * 10);
+                    printf("Ataque No%i", player->attack());
 
                 }
 

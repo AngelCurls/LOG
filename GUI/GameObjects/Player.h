@@ -17,7 +17,7 @@ public:
     Player(int x, int y);
 
     void draw();
-    void attack();
+    int attack();
 
     void draw(std::list<Cell<int>*>* path);
 
@@ -53,6 +53,8 @@ public:
 
     int speed = 1; // cuanto mayor sea el numero, menor es la velocidad
     int speedClock = speed;
+    int damage = 1;
+
 
 private:
     int drawRelationRatio = 15;

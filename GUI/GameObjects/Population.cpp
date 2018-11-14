@@ -85,3 +85,10 @@ bool Population::collideWithGem(Gem *pGem) {
 Player *const *Population::getPlayers() const {
     return players;
 }
+
+int Population::setAttack(int attack) {
+    for (int k = 0; k < 10; k++) {
+        this->players[k]->damage++;
+
+    }
+}
